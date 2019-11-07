@@ -1,4 +1,5 @@
 @charset "utf-8";
+
 body {
     padding: 0px;
     border: 0px;
@@ -30,6 +31,11 @@ body img {
 #bcitLOGO {
     transform: translate(50px);
 }
+.pageRightAlign {
+    right: 0%;
+    position: absolute;
+}
+
 
 @media (max-width: 375px){
 }
@@ -42,4 +48,16 @@ body img {
     transform: translate(-120px);
     width: 250px;
     color: rgba(255,255,255,1.00);
+}
+
+#signInContainer {
+    width: 82px;
+    text-align: center;
+    color: rgba(255,255,255,1.00);
+    top: 17px;
+    right: 3%;
+}
+#signInText{
+    color: rgba(255,255,255,1.00);
+    text-decoration: none;
 }
