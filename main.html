@@ -3,8 +3,7 @@
 <head>
 
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
-
+    <link rel="stylesheet" type="text/css" href="public/stylesheet.css" />
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
@@ -41,21 +40,26 @@
     </script>
     <!-- The surrounding HTML is left untouched by FirebaseUI.
          Your app may use that space for branding, controls and other customizations.-->
-
-
 </head>
+
 <body>
 <p></p>
 
 
 <script>
-    var user = firebase.auth;
-
+firebase.auth().onAuthStateChanged(function (user){
     if (user) {
-        alert("signed in")
-    } else {
-        alert("Not signed in")
+        localStorage.setItem('userName', user.displayName);
     }
+    else {
+        alert("Not logged in")
+    }
+})
 </script>
+
+<script>
+    alert(localStorage.getItem("userName"))
+</script>
+
 </body>
 </html>
