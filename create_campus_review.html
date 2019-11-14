@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
+  </head>
+<body>
+
+<h1>CREATE CAMPUS REVIEW</h1>
+<h2>DOWNTOWN</h2>
+<form action="/success.html">
+<div class="slider">
+<p>Accessibility: <span id="slider1">5</span></p>    
+<input type="range" id="accessibility" min="0", max = "10" oninput="updateValue('slider1', this.value)">
+</div>
+
+<div class="slider">
+<p>Extracurriculars: <span id="slider2">5</span></p>    
+<input type="range" id="extracurr" min="0", max = "10" oninput="updateValue('slider2', this.value)">
+</div>
+
+<div class="slider">
+<p>Social Experience:  <span id="slider3">5</span></p>    
+<input type="range" id="social" min="0", max = "10" oninput="updateValue('slider3', this.value)">
+</div>
+
+<div class="slider">
+<p for="food">Food: <span id="slider4">5</span></p>    
+<input type="range" id="food" min="0", max = "10" oninput="updateValue('slider4', this.value)">
+</div>
+
+<div class="slider">
+<p for="food">Food: <span id="slider5">5</span></p>    
+<input type="range" id="food" min="0", max = "10" oninput="updateValue('slider5', this.value)">
+</div>
+
+<div>
+  <p>Comments:</pl>
+  <textarea id="comments" name="user_comments" cols="50" rows="4"></textarea>
+</div>
+
+<div class="button">
+    <button type="submit">Share Review</button>
+</div>
+
+<script>
+function updateValue(id, val) {
+  document.getElementById(id).innerHTML = val; 
+}
+</script>
+</form>
+</body>
+</html>
