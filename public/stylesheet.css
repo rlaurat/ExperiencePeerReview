@@ -37,13 +37,12 @@ body img {
 }
 
 
-@media (max-width: 375px){
+@media (max-width: 375px){ /* force minimum window size */
 }
 .locationPeerReviewTitle {
     top: 176px;
     position: absolute;
     font-size: xx-large;
-/*    text-align: center;*/
     left: 50%;
     transform: translate(-120px);
     width: 250px;

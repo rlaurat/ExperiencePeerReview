@@ -28,12 +28,8 @@
         firebase.initializeApp(firebaseConfig);
             // ref to firestore database
         var db = firebase.firestore();
-
-            //TEST
-            
-            
-        
         </script>
+     
         
         
         <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
@@ -79,13 +75,21 @@
         ui.start('#firebaseui-auth-container', uiConfig);
         </script>
     </head>        
-        <body>
+    <body>
                     
         <h1>Let's read from database: <span id="data">....</span></h1>
         
-        <script>db.collection("hello").doc("this a doc").set({
-                sadness: "work",
-                too: "ploop"
+        <script>db.collection("students").doc("Rachel").set({
+                age: 19,
+                hair: "pink",
+                present: true,
+                eyecolour: "blue"
+            })
+            
+            db.collection("students").doc("Lynn").set({
+                asgeaewv: 26,
+                xzbv: "black",
+                asdbasdb: true
             })
             .then(function(){
                 console.log("Success");
