@@ -1,123 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
+    authDomain: "experiencepeerreview.firebaseapp.com",
+    databaseURL: "https://experiencepeerreview.firebaseio.com",
+    projectId: "experiencepeerreview",
+    storageBucket: "experiencepeerreview.appspot.com",
+    messagingSenderId: "975792372955",
+    appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+// ref to firestore database
+var db = firebase.firestore();
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
-
-    <!-- Add SDKs for Firebase products that you want to use
-    https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-
-
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
-            authDomain: "experiencepeerreview.firebaseapp.com",
-            databaseURL: "https://experiencepeerreview.firebaseio.com",
-            projectId: "experiencepeerreview",
-            storageBucket: "experiencepeerreview.appspot.com",
-            messagingSenderId: "975792372955",
-            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        // ref to firestore database
-        var db = firebase.firestore();
-    </script>
-
-
-    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>
-
-    <script>
-        // Initialize the FirebaseUI Widget using Firebase.
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    </script>
-    <!-- The surrounding HTML is left untouched by FirebaseUI.
-         Your app may use that space for branding, controls and other customizations.-->
-
-
-
-
-
-    <h1>Experience Peer Review</h1>
-    <div id="firebaseui-auth-container"></div>
-    <div id="loader">Loading...</div>
-    <script>
-        var uiConfig = {
-            callbacks: {
-                signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-                    // User successfully signed in.
-                    // Return type determines whether we continue the redirect automatically
-                    // or whether we leave that to developer to handle.
-                    return true;
-                },
-                uiShown: function () {
-                    // The widget is rendered.
-                    // Hide the loader.
-                    document.getElementById('loader').style.display = 'none';
-                }
-            },
-            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-            signInFlow: 'popup',
-            signInSuccessUrl: 'main.html',
-            signInOptions: [
-                // Leave the lines as is for the providers you want to offer your users.
-                firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            ],
-            // Terms of service url.
-            tosUrl: '<your-tos-url>',
-            // Privacy policy url.
-            privacyPolicyUrl: '<your-privacy-policy-url>'
-        };
-        // The start method will wait until the DOM is loaded.
-        ui.start('#firebaseui-auth-container', uiConfig);
-    </script>
-
-</head>
-<body>
-
-
-<h1>Let's read from database: <span id="data">....</span></h1>
-
-<script>db.collection("students").doc("Rachel").set({
-    age: 19,
-    hair: "pink",
-    present: true,
-    eyecolour: "blue"
-})
-
-db.collection("students").doc("Lynn").set({
-    asgeaewv: 26,
-    xzbv: "black",
-    asdbasdb: true
-})
-    .then(function () {
-        console.log("Success");
-        document.getElementById('data').innerHTML = "upload"
-    })
-    .catch(function (error) {
-        console.log("err")
-    })
-
-</script>
-
-
-</body>
-</html>
-
-
-<!-- used to check if user is logged in
-var user = firebase.auth().currentUser;
-
-if (user) {
-  // User is signed in.
-} else {
-  // No user is signed in.
-}
-!-->
