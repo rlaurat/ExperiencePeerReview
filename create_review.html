@@ -49,8 +49,8 @@
 </head>
 <body>
 
-<h1>CREATE CAMPUS REVIEW</h1>
-<h2>DOWNTOWN</h2>
+<h1>CREATE A REVIEW</h1>
+<h2><span id = "programNameDisplay">DOWNTOWN</span></h2>
 
 <div class="slider">
     <p>Accessibility: <span id="slider1">5</span></p>
@@ -94,15 +94,21 @@
 
     // check if comment section is empty
     function checkEmptyReview() {
-        if (document.getElementById('comment') == null) {
+        if (document.getElementById('comment') === null) {
             alert("Please enter a review");
-            return;
+            submitFormByClick();
 
         } else {
             submitFormByClick();
         }
     }
 
+    function grabProgramFromURL(){
+        let program_name = decodeURIComponent(window.location.search);
+        let query = program_name.split("?");
+        // let item = query[1];
+        document.getElementById("programNameDisplay").innerHTML = query[1];
+    }
 
     function submitFormByClick() {
         // declarations
@@ -112,12 +118,14 @@
         let food = parseInt(document.getElementById('food').value);
         let review_textbox = document.getElementById("comments").value;
         alert(review_textbox);
-        // let user = grab from temp location ****** to be changed later
-        let user = "test_up";
-        db.collection('Users').doc(user).collection("review").doc("COMP1930").set({
+        // let user = localStorage.getItem("username"); *** CHANGE TO THIS FOR FINAL VERSION
+        let user = "test user";
+        db.collection("Programs").doc("CST").collection("Reviews").add({
             slider: [access, extraCurr, social, food],
-            review_text: review_textbox
-        })
+            review_text: review_textbox,
+            user_ID: user
+            })
+
             .then(function () {
                 alert("success!");
             })
@@ -128,6 +136,8 @@
 
     // end function submitFormByClick
 
+    // run function
+    grabProgramFromURL();
 
 </script>
 
