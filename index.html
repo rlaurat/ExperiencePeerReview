@@ -64,7 +64,8 @@
 
     <script>
         function getPrograms() {
-            var programsRef = db.collection('Programs').get().then(function (querySnapshot) {
+            var programsRef = db.collection('Programs');
+            programsRef.get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     var btn = document.createElement("BUTTON");
                     btn.id = doc.id;
