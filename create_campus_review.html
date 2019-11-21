@@ -50,7 +50,7 @@
 <body>
 
 <h1>CREATE CAMPUS REVIEW</h1>
-<h2>DOWNTOWN</h2>
+<h2><span id = "programNameDisplay">DOWNTOWN</span></h2>
 
 <div class="slider">
     <p>Accessibility: <span id="slider1">5</span></p>
@@ -103,6 +103,12 @@
         }
     }
 
+    function grabProgramFromURL(){
+        let program_name = decodeURIComponent(window.location.search);
+        let query = program_name.split("?");
+        // let item = query[1];
+        document.getElementById("programNameDisplay").innerHTML = query[1];
+    }
 
     function submitFormByClick() {
         // declarations
@@ -130,6 +136,8 @@
 
     // end function submitFormByClick
 
+    // run function
+    grabProgramFromURL();
 
 </script>
 
