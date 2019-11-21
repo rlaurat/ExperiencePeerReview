@@ -50,36 +50,41 @@
 <body>
 
 <h1>CREATE A REVIEW</h1>
-<h2><span id = "programNameDisplay">DOWNTOWN</span></h2>
+<h2><span id="programNameDisplay">DOWNTOWN</span></h2>
 
 <div class="slider">
-    <p>Accessibility: <span id="slider1">5</span></p>
-    <input type="range" id="accessibility" min="0" max="10" oninput="updateValue('slider1', this.value)">
+    <p>Student Support: <span id="slider1">5</span></p>
+    <input type="range" id="s0" min="0" max="10" oninput="updateValue('slider1', this.value)">
 </div>
 
 <div class="slider">
-    <p>Extracurriculars: <span id="slider2">5</span></p>
-    <input type="range" id="extracurr" min="0" max="10" oninput="updateValue('slider2', this.value)">
+    <p>Social Experience: <span id="slider2">5</span></p>
+    <input type="range" id="s1" min="0" max="10" oninput="updateValue('slider2', this.value)">
 </div>
 
 <div class="slider">
-    <p>Social Experience: <span id="slider3">5</span></p>
-    <input type="range" id="social" min="0" max="10" oninput="updateValue('slider3', this.value)">
+    <p>Workload: <span id="slider3">5</span></p>
+    <input type="range" id="s2" min="0" max="10" oninput="updateValue('slider3', this.value)">
 </div>
 
 <div class="slider">
-    <p for="food">Food: <span id="slider4">5</span></p>
-    <input type="range" id="food" min="0" max="10" oninput="updateValue('slider4', this.value)">
+    <p for="food">Job Prospect: <span id="slider4">5</span></p>
+    <input type="range" id="s3" min="0" max="10" oninput="updateValue('slider4', this.value)">
 </div>
 
-<!--    <div class="slider">-->
-<!--        <p for="food">Food: <span id="slider5">5</span></p>-->
-<!--        <input type="range" id="food" min="0" , max="10" oninput="updateValue('slider5', this.value)">-->
-<!--    </div>-->
+    <div class="slider">
+        <p for="food">Overall : <span id="slider5">5</span></p>
+        <input type="range" id="s4" min="0" max="10" oninput="updateValue('slider5', this.value)">
+    </div>
 
 <div>
     <p>Comments:</p>
     <textarea id="comments" name="user_comments" cols="50" rows="4"></textarea>
+</div>
+
+<div>
+    <p>Jobs:</p>
+    <textarea id="jobs" name="jobs" cols="15" rows="1"></textarea>
 </div>
 
 <div class="button">
@@ -103,28 +108,30 @@
         }
     }
 
-    function grabProgramFromURL(){
+
         let program_name = decodeURIComponent(window.location.search);
-        let query = program_name.split("?");
+        var query = program_name.split("?");
         // let item = query[1];
         document.getElementById("programNameDisplay").innerHTML = query[1];
-    }
 
     function submitFormByClick() {
         // declarations
-        let access = parseInt(document.getElementById('accessibility').value);
-        let extraCurr = parseInt(document.getElementById('extracurr').value);
-        let social = parseInt(document.getElementById('social').value);
-        let food = parseInt(document.getElementById('food').value);
-        let review_textbox = document.getElementById("comments").value;
-        alert(review_textbox);
-        // let user = localStorage.getItem("username"); *** CHANGE TO THIS FOR FINAL VERSION
-        let user = "test user";
-        db.collection("Programs").doc("CST").collection("Reviews").add({
-            slider: [access, extraCurr, social, food],
+        let s0 = parseInt(document.getElementById('s0').value);
+        let s1 = parseInt(document.getElementById('s1').value);
+        let s2 = parseInt(document.getElementById('s2').value);
+        let s3 = parseInt(document.getElementById('s3').value);
+        let s4 = parseInt(document.getElementById('s4').value);
+        let review_textbox = document.getElementById("s4").value;
+        let jobs = document.getElementById('jobs').value;
+        let program = query[1];
+        let user = localStorage.getItem("username");
+        // let user = "test user";
+        db.collection("Programs").doc(program).collection("Reviews").add({
+            slider: [s0, s1, s2, s3, s4],
             review_text: review_textbox,
-            user_ID: user
-            })
+            user_ID: user,
+            job: jobs
+        })
 
             .then(function () {
                 alert("success!");
@@ -134,10 +141,15 @@
             })
     }
 
-    // end function submitFormByClick
+    // check authentication
+    // localStorage.setItem("username", "kevin Test"); use to TEST
+    let user = localStorage.getItem("username");
+    if (user === null) {
+        alert("Not logged in");
+        window.location.href = "index.html";
+    }
 
-    // run function
-    grabProgramFromURL();
+        // run function
 
 </script>
 
