@@ -83,7 +83,7 @@
     </div>
 
     <div class="button">
-        <button type="submit" onclick="submitFormByClick()">Share Review</button>
+        <button type="submit" onclick="checkEmptyReview()">Share Review</button>
     </div>
 
 
@@ -91,6 +91,18 @@
         function updateValue(id, val) {
             document.getElementById(id).innerHTML = val;
         }
+
+        // check if comment section is empty
+        function checkEmptyReview() {
+            if(document.getElementById('comment') == null ){
+                alert("Please enter a review");
+                return;
+
+            } else {
+                submitFormByClick();
+            }
+        }
+
 
         function submitFormByClick(){
             // declarations
@@ -119,6 +131,6 @@
 
 
     </script>
-</form>
+
 </body>
 </html>
