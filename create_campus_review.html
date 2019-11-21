@@ -94,9 +94,9 @@
 
     // check if comment section is empty
     function checkEmptyReview() {
-        if (document.getElementById('comment') == null) {
+        if (document.getElementById('comment') === null) {
             alert("Please enter a review");
-            return;
+            submitFormByClick();
 
         } else {
             submitFormByClick();
@@ -112,12 +112,14 @@
         let food = parseInt(document.getElementById('food').value);
         let review_textbox = document.getElementById("comments").value;
         alert(review_textbox);
-        // let user = grab from temp location ****** to be changed later
-        let user = "test_up";
-        db.collection('Users').doc(user).collection("review").doc("COMP1930").set({
+        // let user = localStorage.getItem("username"); *** CHANGE TO THIS FOR FINAL VERSION
+        let user = "test user";
+        db.collection("Programs").doc("CST").collection("Reviews").add({
             slider: [access, extraCurr, social, food],
-            review_text: review_textbox
-        })
+            review_text: review_textbox,
+            user_ID: user
+            })
+
             .then(function () {
                 alert("success!");
             })
