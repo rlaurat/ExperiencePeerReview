@@ -1,57 +1,124 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
-      <style>
-        body{
-          font-family:Arial, Helvetica, sans-serif;
+<head>
+    <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
         }
-      </style>
-  </head>
+    </style>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+    <!-- Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
+            authDomain: "experiencepeerreview.firebaseapp.com",
+            databaseURL: "https://experiencepeerreview.firebaseio.com",
+            projectId: "experiencepeerreview",
+            storageBucket: "experiencepeerreview.appspot.com",
+            messagingSenderId: "975792372955",
+            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // ref to firestore database
+        var db = firebase.firestore();
+    </script>
+
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>
+
+    <script>
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    </script>
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+         Your app may use that space for branding, controls and other customizations.-->
+
+</head>
 <body>
 
 <h1>CREATE CAMPUS REVIEW</h1>
 <h2>DOWNTOWN</h2>
-<form action="/success.html">
-<div class="slider">
-<p>Accessibility: <span id="slider1">5</span></p>    
-<input type="range" id="accessibility" min="0", max = "10" oninput="updateValue('slider1', this.value)">
-</div>
 
-<div class="slider">
-<p>Extracurriculars: <span id="slider2">5</span></p>    
-<input type="range" id="extracurr" min="0", max = "10" oninput="updateValue('slider2', this.value)">
-</div>
+    <div class="slider">
+        <p>Accessibility: <span id="slider1">5</span></p>
+        <input type="range" id="accessibility" min="0" max="10" oninput="updateValue('slider1', this.value)">
+    </div>
 
-<div class="slider">
-<p>Social Experience:  <span id="slider3">5</span></p>    
-<input type="range" id="social" min="0", max = "10" oninput="updateValue('slider3', this.value)">
-</div>
+    <div class="slider">
+        <p>Extracurriculars: <span id="slider2">5</span></p>
+        <input type="range" id="extracurr" min="0" max="10" oninput="updateValue('slider2', this.value)">
+    </div>
 
-<div class="slider">
-<p for="food">Food: <span id="slider4">5</span></p>    
-<input type="range" id="food" min="0", max = "10" oninput="updateValue('slider4', this.value)">
-</div>
+    <div class="slider">
+        <p>Social Experience: <span id="slider3">5</span></p>
+        <input type="range" id="social" min="0" max="10" oninput="updateValue('slider3', this.value)">
+    </div>
 
-<div class="slider">
-<p for="food">Food: <span id="slider5">5</span></p>    
-<input type="range" id="food" min="0", max = "10" oninput="updateValue('slider5', this.value)">
-</div>
+    <div class="slider">
+        <p for="food">Food: <span id="slider4">5</span></p>
+        <input type="range" id="food" min="0" max="10" oninput="updateValue('slider4', this.value)">
+    </div>
 
-<div>
-  <p>Comments:</pl>
-  <textarea id="comments" name="user_comments" cols="50" rows="4"></textarea>
-</div>
+<!--    <div class="slider">-->
+<!--        <p for="food">Food: <span id="slider5">5</span></p>-->
+<!--        <input type="range" id="food" min="0" , max="10" oninput="updateValue('slider5', this.value)">-->
+<!--    </div>-->
 
-<div class="button">
-    <button type="submit">Share Review</button>
-</div>
+    <div>
+        <p>Comments:</p>
+            <textarea id="comments" name="user_comments" cols="50" rows="4"></textarea>
+    </div>
 
-<script>
-function updateValue(id, val) {
-  document.getElementById(id).innerHTML = val; 
-}
-</script>
+    <div class="button">
+        <button type="submit" onclick="submitFormByClick()">Share Review</button>
+    </div>
+
+
+    <script>
+        function updateValue(id, val) {
+            document.getElementById(id).innerHTML = val;
+        }
+
+        function submitFormByClick(){
+            // declarations
+            let access = parseInt(document.getElementById('accessibility').value);
+            let extraCurr = parseInt(document.getElementById('extracurr').value);
+            let social = parseInt(document.getElementById('social').value);
+            let food = parseInt(document.getElementById('food').value);
+            let review_textbox = document.getElementById("comments").value ;
+            alert(review_textbox);
+            // let user = grab from temp location ****** to be changed later
+            let user = "test_up";
+            db.collection('Users').doc(user).collection("review").doc("COMP1930").set({
+                slider: [access, extraCurr, social, food],
+                review_text: review_textbox
+            })
+        .then(function(){
+            alert("success!");
+        })
+        .catch(function (error) {
+            alert("error", error);
+            })
+        }
+        // end function submitFormByClick
+
+
+
+
+    </script>
 </form>
 </body>
 </html>
