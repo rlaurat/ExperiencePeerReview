@@ -3,7 +3,7 @@
 <head>
 
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="public/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="public/stylesheet.css"/>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
@@ -45,31 +45,30 @@
 <body>
 
 <img src="images/BCITlogo.png" alt="" width="487" height="489" class="centerOfScreen" id="bcitLOGO"/>
-    <div class="locationPeerReviewTitle"><p>Welcome, <span id="username">""</span></p></div>
-        <div class="pageRightAlign" id="signInContainer"> <a href="login.html" id="signInText">LOG OUT HOLDER</a>
-        </div>
-
-
+<div class="locationPeerReviewTitle"><p>Welcome, <span id="username">""</span></p></div>
+<div class="pageRightAlign" id="signInContainer"><a href="login.html" id="signInText" onclick="logOut">LOG OUT</a>
+</div>
 
 <script>
     //authenticates user. continue if OK.
-firebase.auth().onAuthStateChanged(function (user){
-    if (user) {
-        localStorage.setItem("userName", user.displayName);
-    }
-    else {
-        alert("Not logged in");
-        window.location.href = "index.html";
-    }
-});
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            localStorage.setItem("username", user.displayName);
+        } else {
+            alert("Not logged in");
+            window.location.href = "index.html";
+        }
+    });
 
-</script>
+    function logOut() {
+        localStorage.removeItem("username");
+    }
 
-<script>
-    let username = localStorage.getItem("userName");
+    let username = localStorage.getItem("username");
     // alert(localStorage.getItem("userName"))
     document.getElementById('username').innerHTML = username;
     localStorage.removeItem("userName")
+
 </script>
 
 </body>
