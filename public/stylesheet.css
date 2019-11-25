@@ -13,9 +13,11 @@ body {
 
 .centerOfScreen {
     position: fixed;
-    left: 50%;
+    display:block;
+    margin-left: 50%;
+    /*margin-right: 50%;*/
     /*margin-left: -50%;*/
-    transform: translateX(100px);
+    transform: translateX(-50%);
 }
 
 body img {
@@ -23,9 +25,9 @@ body img {
     height: 100px;
     top: 93px;
 }
-#bcitLOGO {
-    transform: translate(50px);
-}
+/*#bcitLOGO {*/
+/*    transform: translate(50px);*/
+/*}*/
 .pageRightAlign {
     right: 0%;
     position: absolute;
