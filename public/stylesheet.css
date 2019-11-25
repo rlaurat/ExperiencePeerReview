@@ -1,21 +1,21 @@
 @charset "utf-8";
 
 body {
-    padding: 0px;
-    border: 0px;
-    margin-left: 0%;
-    margin-top: 0%;
-    margin-right: 0%;
-    margin-bottom: 0%;
+    /*padding: 0px;*/
+    /*border: 0px;*/
+    /*margin-left: 0%;*/
+    /*margin-top: 0%;*/
+    /*margin-right: 0%;*/
+    /*margin-bottom: 0%;*/
     background-color: #858585;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.centerOfScreenBCIT {
-    position: relative;
+.centerOfScreen {
+    position: fixed;
     left: 50%;
-    /*margin-left: -100px;*/
-    transform: translateX(-50%);
+    /*margin-left: -50%;*/
+    transform: translateX(100px);
 }
 
 body img {
@@ -35,12 +35,12 @@ body img {
 @media (max-width: 375px){ /* force minimum window size */
 }
 .locationPeerReviewTitle {
-    top: 176px;
-    position: relative;
+    /*top: 176px;*/
+    /*position: relative;*/
     font-size: xx-large;
     left: 50%;
-    transform: translate(-50%);
-    /*width: 250px;*/
+    /*transform: translate(-50%);*/
+    /*!*width: 250px;*!*/
     color: rgba(255,255,255,1.00);
 }
 
