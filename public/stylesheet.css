@@ -9,7 +9,7 @@ body {
 
 .centerOfScreen {
     position: fixed;
-    display:block;
+    display: block;
     margin-left: 50%;
     /*margin-right: 50%;*/
     /*margin-left: -50%;*/
@@ -28,24 +28,26 @@ body {
 }
 
 
-@media (max-width: 375px){ /* force minimum window size */
+@media (max-width: 375px) {
+    /* force minimum window size */
 }
-.locationPeerReviewTitle {
 
+.locationPeerReviewTitle {
     font-size: xx-large;
-    color: rgba(255,255,255,1.00);
+    color: rgba(255, 255, 255, 1.00);
 }
 
 #signInContainer {
     width: 55px;
     text-align: center;
-    color: rgba(255,255,255,1.00);
+    color: rgba(255, 255, 255, 1.00);
     top: 0%;
     right: 7%;
 }
-#signInText{
+
+#signInText {
     font-size: small;
-    color: rgba(255,255,255,1.00);
+    color: rgba(255, 255, 255, 1.00);
     /*text-decoration: none;*/
 }
 
