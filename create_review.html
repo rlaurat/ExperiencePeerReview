@@ -108,7 +108,6 @@
         }
     }
 
-
         let program_name = decodeURIComponent(window.location.search);
         var query = program_name.split("?");
         // let item = query[1];
@@ -121,7 +120,7 @@
         let s2 = parseInt(document.getElementById('s2').value);
         let s3 = parseInt(document.getElementById('s3').value);
         let s4 = parseInt(document.getElementById('s4').value);
-        let review_textbox = document.getElementById("s4").value;
+        let review_textbox = document.getElementById("comments").value;
         let jobs = document.getElementById('jobs').value;
         let program = query[1];
         let user = localStorage.getItem("username");
@@ -135,6 +134,7 @@
 
             .then(function () {
                 alert("success!");
+                window.location.href = "thanks.html"+program_name;
             })
             .catch(function (error) {
                 alert("error", error);

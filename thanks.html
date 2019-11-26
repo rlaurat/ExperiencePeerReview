@@ -1,0 +1,88 @@
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .mainbutton{
+        background-color: #003e6b;
+        padding: 25px;
+        width: 25%;
+        /* margin-right:auto;
+        margin-left:auto;
+        margin-top: auto;
+        margin-bottom: auto; */
+        border: 3px solid #858585;
+        color: white;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .mainbutton:hover{
+        border: 3px solid #ebb805;
+    }
+    </style>
+</head>
+<div class='container'>
+
+</div>
+
+<body>
+
+    <h1>Thank You For Reviewing: </h1>
+    <h2 id="program"></h2>
+
+    <div class="mainbutton" id="home">
+            Return to Home
+        </div>
+    
+        <div class="mainbutton" id="feed">
+            View Review Feed
+        </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+    <!-- Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
+            authDomain: "experiencepeerreview.firebaseapp.com",
+            databaseURL: "https://experiencepeerreview.firebaseio.com",
+            projectId: "experiencepeerreview",
+            storageBucket: "experiencepeerreview.appspot.com",
+            messagingSenderId: "975792372955",
+            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // ref to firestore database
+        var db = firebase.firestore();
+    </script>
+
+<script>
+    let queryString = window.location.href.split('?')
+    let program = queryString[1]
+    document.getElementById('program').innerHTML = program
+
+    document.getElementById("home").onclick = toHome;
+    document.getElementById("feed").onclick = toFeed;
+
+    function toHome(){
+        window.location.href = "main.html"
+    }
+    function toFeed(){
+        window.location.href = "format.html?"+program;
+    }
+
+</script>
+
+</body>
+</html>

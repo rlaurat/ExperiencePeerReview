@@ -10,20 +10,85 @@
 
 </div>
 <body>
+
+    <h1>Review Feed</h1>
+    <h2 id="program"></h2>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+    <!-- Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+
+
     <script>
-        function Review(comment){
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
+            authDomain: "experiencepeerreview.firebaseapp.com",
+            databaseURL: "https://experiencepeerreview.firebaseio.com",
+            projectId: "experiencepeerreview",
+            storageBucket: "experiencepeerreview.appspot.com",
+            messagingSenderId: "975792372955",
+            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // ref to firestore database
+        var db = firebase.firestore();
+    </script>
+
+    <script>
+        
+        //let programs = {0: "CIT", 1: "CST", 2: "Software System Development"};
+        let queryString = window.location.href.split('?')
+        let program = queryString[1]
+        document.getElementById('program').innerHTML = program
+
+        function Review(comment, val){
             this.rvw = document.createElement("div");
-            this.rvw.innerHTML = comment;
             this.rvw.style.backgroundColor = '#003e6b';
             this.rvw.style.width = "50%";
-            this.rvw.style.color = 'white';
+            this.rvw.style.height = "25%";
             this.rvw.style.margin = 'auto';
             this.rvw.style.border = '3px solid #858585' ;
-            this.rvw.style.padding = "25px";
+            this.rvw.style.padding = "10px";
             document.body.appendChild(this.rvw);
+            this.cmt = document.createElement("div");
+            this.cmt.innerHTML = comment;
+            this.cmt.style.backgroundColor = "white";
+            this.cmt.style.border = '3px solid #003e6b';
+            this.cmt.style.float = "left";
+            this.cmt.style.width = "40%";
+            this.cmt.style.height = "80%"
+            this.cmt.style.padding = "10px";
+            this.rvw.appendChild(this.cmt);
+            this.values = document.createElement("div");
+            this.values.innerHTML = "Student Support: "+val[0]+"/10" + "\n"+"Social Experience: "+val[1]+"/10"
+            this.values.style.backgroundColor = "white"
+            this.values.style.float = "right";
+            this.values.style.width="40%";
+            this.rvw.appendChild(this.values);
         }
 
-        reviewArray = [Review('hello'), Review('rachel')]
+        reviewArray = [];
+
+        function getPrograms() {
+        var programsRef = db.collection('Programs').doc(program).collection("Reviews");
+        programsRef.get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let text = doc.data().review_text;
+                let values = doc.data().slider;
+                let job = doc.data().job;
+                reviewArray.push(Review(text, values));
+            })
+        });
+        }
+
+    getPrograms()
     </script>
 </body>
 </html>
