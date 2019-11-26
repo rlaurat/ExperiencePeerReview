@@ -3,6 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="js/externalJavascript.js"></script>
 <style>
 #navbody {
   margin: 0;
@@ -62,7 +63,8 @@
   <a href="main.html">Search for Reviews</a>
   <a href="#contact">Contact Us</a>
   <a href="#settings" id="settingNav" style="display: none">Account Settings</a>
-  <a href="login.html" id="loginNav" style="display:">Sign in</a>
+  <a href="login.html" id="loginNav" style="display: ">Sign in</a>
+  <a href="javascript:void(0);" id="logOutText_dropdown" style="display: none" onclick="logOutForceRefresh()">Log Out</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
@@ -70,6 +72,8 @@
 
 <div class="pageRightAlign" id="signInContainer">
     <a href="login.html" id="signInText">LOG IN SIGN UP</a>
+    <a href="javascript:void(0)"; id="logOutText_right" style="display: none" onclick="logOutForceRefresh()">LOG OUT</a>
+
 </div>
 
 
@@ -83,12 +87,19 @@ function nav_LogIn() {
         document.getElementById('hideYoWife').innerHTML = "Hi, " + username;
         document.getElementById('hideYoWife').style.color = "white";
         document.getElementById('hideYoWife').style.display = "";
-        document.getElementById("signInText").innerHTML = "LOG OUT";
+        // document.getElementById("signInText").innerHTML = "LOG OUT";
         document.getElementById("loginNav").style.display = "none";
         document.getElementById("settingNav").style.display = "";
+        document.getElementById("signInText").style.display = "none";
+        document.getElementById('logOutText_right').style.display = "";
+        document.getElementById('logOutText_dropdown').style.display = "";
       }
-
 }
+
+function logOutForceRefresh() {
+        localStorage.clear();
+        location.reload();
+    }
 
 function myFunction() {
   var x = document.getElementById("myTopnav");
