@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-body {
+#navbody {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -54,14 +54,14 @@ body {
 }
 </style>
 </head>
-<body>
+<body id="navbody">
 
 <div class="topnav" id="myTopnav">
   <a src="" class="active">Home</a>
   <a id="hideYoWife" style="display:none">""</a>
   <a href="main.html">Search for Reviews</a>
   <a href="#contact">Contact Us</a>
-  <a href="#settings">Account Settings</a>
+  <a href="#settings" id="settingNav" style="display: none">Account Settings</a>
   <a href="login.html" id="loginNav" style="display:">Sign in</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
@@ -75,7 +75,7 @@ body {
 
 <script>
   // localStorage.setItem('username', "test");
-  localStorage.removeItem('username');
+  // localStorage.removeItem('username');
 function nav_LogIn() {
       if(localStorage.getItem('username') != null) { //if logged in
         let username = localStorage.getItem('username');
@@ -85,7 +85,7 @@ function nav_LogIn() {
         document.getElementById('hideYoWife').style.display = "";
         document.getElementById("signInText").innerHTML = "LOG OUT";
         document.getElementById("loginNav").style.display = "none";
-
+        document.getElementById("settingNav").style.display = "";
       }
 
 }
