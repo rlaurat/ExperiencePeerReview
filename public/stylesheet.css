@@ -1,12 +1,8 @@
 @charset "utf-8";
 
+/*BCIT BLUE #003e6b */
+
 body {
-    /*padding: 0px;*/
-    /*border: 0px;*/
-    /*margin-left: 0%;*/
-    /*margin-top: 0%;*/
-    /*margin-right: 0%;*/
-    /*margin-bottom: 0%;*/
     background-color: #858585;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -20,42 +16,39 @@ body {
     transform: translateX(-50%);
 }
 
-body img {
+#bcitLOGO {
     width: 100px;
     height: 100px;
-    top: 93px;
 }
-/*#bcitLOGO {*/
-/*    transform: translate(50px);*/
-/*}*/
+
+
 .pageRightAlign {
     right: 0%;
     position: absolute;
 }
 
 
-@media (max-width: 375px){ /* force minimum window size */
+@media (max-width: 375px) {
+    /* force minimum window size */
 }
+
 .locationPeerReviewTitle {
-    /*top: 176px;*/
-    /*position: relative;*/
     font-size: xx-large;
-    left: 50%;
-    /*transform: translate(-50%);*/
-    /*!*width: 250px;*!*/
-    color: rgba(255,255,255,1.00);
+    color: rgba(255, 255, 255, 1.00);
 }
 
 #signInContainer {
-    width: 82px;
+    width: 55px;
     text-align: center;
-    color: rgba(255,255,255,1.00);
-    top: 17px;
-    right: 3%;
+    color: rgba(255, 255, 255, 1.00);
+    top: 0%;
+    right: 7%;
 }
-#signInText{
-    color: rgba(255,255,255,1.00);
-    text-decoration: none;
+
+#signInText {
+    font-size: small;
+    color: rgba(255, 255, 255, 1.00);
+    /*text-decoration: none;*/
 }
 
 /* HAMBURGER MENU */
