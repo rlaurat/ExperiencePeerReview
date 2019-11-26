@@ -46,24 +46,31 @@
 </head>
 <body>
 
-<div class="button">
+<!--<div class="button">
     <button type="submit" onclick="viewReview()">View Review</button>
-</div>
+</div>-->
 <script>
+
+
     function viewReview() {
-        docRef = db.collection('Programs').doc("CST").collection("Reviews").doc("KktgiT7dQhugokVBq35f");
-        docRef.get().then(function(doc){
+        docRef = db.collection('Programs').doc("CST").collection("Reviews");
+        docRef.get().then(function(querySnapshot){
+            querySnapshot.forEach(function(doc){
             if (doc.exists) {
-                console.log("Document data: ", doc.data());
+                document.write("Accessibility: ", doc.data().slider[0], '\n');
+                document.write("Social Experience: ", doc.data().slider[1]);
+                document.write("Community", doc.data().slider[2]);
+                document.write("Food: ", doc.data().slider[3]);
+                document.write("Comments: ", doc.data().review_text);
             }
             else{
                 console.log("No document!");
             }
-    }).catch(function(error) {
+    ).catch(function(error) {
         console.log("Error getting doc: ", error);
-    })
-    };
-
+    }})
+    });
+    viewReview();
     // end function submitFormByClick
 
 

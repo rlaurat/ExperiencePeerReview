@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<div class='container'>
+
+</div>
+<body>
+    <script>
+        function Review(comment){
+            this.rvw = document.createElement("div");
+            this.rvw.innerHTML = comment;
+            this.rvw.style.backgroundColor = '#003e6b';
+            this.rvw.style.width = "50%";
+            this.rvw.style.color = 'white';
+            this.rvw.style.margin = 'auto';
+            this.rvw.style.border = '3px solid #858585' ;
+            this.rvw.style.padding = "25px";
+            document.body.appendChild(this.rvw);
+        }
+
+        reviewArray = [Review('hello'), Review('rachel')]
+    </script>
+</body>
+</html>
