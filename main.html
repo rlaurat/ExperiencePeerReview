@@ -95,7 +95,7 @@
         programsRef.get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 progSelect = document.getElementById('progList');
-                progSelect.options[progSelect.options.length] = new Option(doc.id, doc.id)
+                progSelect.options[progSelect.options.length] = new Option(doc.data().FullName, doc.id)
             })
         });
     }

@@ -50,7 +50,7 @@
 <body>
 
 <h1>CREATE A REVIEW</h1>
-<h2><span id="programNameDisplay">DOWNTOWN</span></h2>
+<h2><span id="programNameDisplay"></span></h2>
 
 <div class="slider">
     <p>Student Support: <span id="slider1">5</span></p>
@@ -110,9 +110,11 @@
 
         let program_name = decodeURIComponent(window.location.search);
         var query = program_name.split("?");
-        // let item = query[1];
-        document.getElementById("programNameDisplay").innerHTML = query[1];
-
+        var programsRef = db.collection('Programs').doc(query[1]);
+        programsRef.get().then(function(doc){
+            document.getElementById("programNameDisplay").innerHTML = doc.data().FullName;
+        })
+       
     function submitFormByClick() {
         // declarations
         let s0 = parseInt(document.getElementById('s0').value);
@@ -124,17 +126,19 @@
         let jobs = document.getElementById('jobs').value;
         let program = query[1];
         let user = localStorage.getItem("username");
+        let timestamp = new Date();
         // let user = "test user";
         db.collection("Programs").doc(program).collection("Reviews").add({
             slider: [s0, s1, s2, s3, s4],
             review_text: review_textbox,
             user_ID: user,
-            job: jobs
+            job: jobs,
+            dateCreated: timestamp
         })
 
             .then(function () {
                 alert("success!");
-                window.location.href = "thanks.html"+program_name;
+                window.location.href = "thanks.html?"+query[1];
             })
             .catch(function (error) {
                 alert("error", error);

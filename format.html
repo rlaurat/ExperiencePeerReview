@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <style>
+    .value{
+        background-color: rgb(207, 206, 206);
+        float: right;
+        text-align: center;
+        width: 45%;
+        height: 8%;
+        border:2px solid #858585;
+        padding: 1%;
+    }
+    .job{
+        background-color: #858585;
+        float: right;
+        text-align: center;
+        width: 45%;
+        height: 8%;
+        border:2px solid rgb(241, 241, 241);
+        padding: 1%;
+    }
+    </style>
 </head>
 <div class='container'>
 
@@ -44,11 +65,15 @@
     <script>
         
         //let programs = {0: "CIT", 1: "CST", 2: "Software System Development"};
-        let queryString = window.location.href.split('?')
-        let program = queryString[1]
-        document.getElementById('program').innerHTML = program
+        let program_name = decodeURIComponent(window.location.search);
+        var query = program_name.split("?");
+        let program = query[1];
+        var programsRef = db.collection('Programs').doc(query[1]);
+        programsRef.get().then(function(doc){
+            document.getElementById("program").innerHTML = doc.data().FullName;
+        })
 
-        function Review(comment, val){
+        function Review(comment, val, job){
             this.rvw = document.createElement("div");
             this.rvw.style.backgroundColor = '#003e6b';
             this.rvw.style.width = "50%";
@@ -59,32 +84,56 @@
             document.body.appendChild(this.rvw);
             this.cmt = document.createElement("div");
             this.cmt.innerHTML = comment;
-            this.cmt.style.backgroundColor = "white";
-            this.cmt.style.border = '3px solid #003e6b';
+            this.cmt.style.backgroundColor = "rgb(241, 241, 241)";
             this.cmt.style.float = "left";
-            this.cmt.style.width = "40%";
-            this.cmt.style.height = "80%"
-            this.cmt.style.padding = "10px";
+            this.cmt.style.width = "45%";
+            this.cmt.style.height = "90%"
+            this.cmt.style.padding = "1%";
             this.rvw.appendChild(this.cmt);
-            this.values = document.createElement("div");
-            this.values.innerHTML = "Student Support: "+val[0]+"/10" + "\n"+"Social Experience: "+val[1]+"/10"
-            this.values.style.backgroundColor = "white"
-            this.values.style.float = "right";
-            this.values.style.width="40%";
-            this.rvw.appendChild(this.values);
+            this.value1 = document.createElement("div");
+            this.value1.innerHTML = "Student Support: "+val[0]+"/10";
+            this.value1.className = "value"
+            this.rvw.appendChild(this.value1);
+            this.value2 = document.createElement("div");
+            this.value2.innerHTML = "Social Experience: "+val[1]+"/10";
+            this.value2.className = "value";
+            this.rvw.appendChild(this.value2);
+            this.value3 = document.createElement("div");
+            this.value3.innerHTML = "Work Load: "+val[2]+"/10";
+            this.value3.className = "value";
+            this.rvw.appendChild(this.value3);
+            this.value4 = document.createElement("div");
+            this.value4.innerHTML = "Job Prospects: "+val[3]+"/10";
+            this.value4.className = "value";
+            this.rvw.appendChild(this.value4);
+            this.job = document.createElement("div");
+            if (job){
+                this.job.innerHTML = "Employment: "+job;
+            }
+            else{
+                this.job.innerHTML = "Employment: N/A"
+            }
+            this.job.className = "job";
+            this.rvw.appendChild(this.job);
         }
 
         reviewArray = [];
 
         function getPrograms() {
         var programsRef = db.collection('Programs').doc(program).collection("Reviews");
-        programsRef.get().then(function (querySnapshot) {
+        var query = programsRef.orderBy('dateCreated');
+        query.get().then(function (querySnapshot) {
+            let dataArray = [];
             querySnapshot.forEach(function (doc) {
                 let text = doc.data().review_text;
                 let values = doc.data().slider;
                 let job = doc.data().job;
-                reviewArray.push(Review(text, values));
+                dataArray.unshift([text, values, job])
+                //reviewArray.unshift(Review(text, values));
             })
+            for (i=0; i<dataArray.length; i++){
+                reviewArray.push(Review(dataArray[i][0], dataArray[i][1]));
+            }
         });
         }
 
