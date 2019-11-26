@@ -58,16 +58,38 @@ body {
 
 <div class="topnav" id="myTopnav">
   <a src="" class="active">Home</a>
+  <a id="hideYoWife" style="display:none">""</a>
   <a href="main.html">Search for Reviews</a>
   <a href="#contact">Contact Us</a>
   <a href="#settings">Account Settings</a>
+  <a href="login.html" id="loginNav" style="display:">Sign in</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
 </div>
 
+<div class="pageRightAlign" id="signInContainer">
+    <a href="login.html" id="signInText">LOG IN SIGN UP</a>
+</div>
+
 
 <script>
+  // localStorage.setItem('username', "test");
+  localStorage.removeItem('username');
+function nav_LogIn() {
+      if(localStorage.getItem('username') != null) { //if logged in
+        let username = localStorage.getItem('username');
+        console.log("here");
+        document.getElementById('hideYoWife').innerHTML = "Hi, " + username;
+        document.getElementById('hideYoWife').style.color = "white";
+        document.getElementById('hideYoWife').style.display = "";
+        document.getElementById("signInText").innerHTML = "LOG OUT";
+        document.getElementById("loginNav").style.display = "none";
+
+      }
+
+}
+
 function myFunction() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -76,6 +98,8 @@ function myFunction() {
     x.className = "topnav";
   }
 }
+
+nav_LogIn()
 </script>
 
 </body>
