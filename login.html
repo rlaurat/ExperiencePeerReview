@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Experience Peer Review</title>
-
+    <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
@@ -40,56 +40,59 @@
     </script>
     <!-- The surrounding HTML is left untouched by FirebaseUI.
          Your app may use that space for branding, controls and other customizations.-->
-    <h1>Experience Peer Review</h1>
+<!--    <h1>Experience Peer Review</h1>-->
+
     <div id="firebaseui-auth-container"></div>
     <div id="loader">Loading...</div>
+
+
     <script>
-        var uiConfig = {
-            callbacks: {
-                signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-                    var user = authResult.user;
-                    if (authResult.additionalUserInfo.isNewUser) {
-                        db.collection("Users").doc(user.uid).set({
-                            name: user.displayName,
-                            email: user.email
-                        })
-                            .then(function () {
-                                console.log("New user added to firestore");
-                                window.location.assign("main.html");
+            var uiConfig = {
+                callbacks: {
+                    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+                        var user = authResult.user;
+                        if (authResult.additionalUserInfo.isNewUser) {
+                            db.collection("Users").doc(user.uid).set({
+                                name: user.displayName,
+                                email: user.email
                             })
-                            .catch(function (error) {
-                                console.log("Error happened " + error);
-                            });
-                    } else {
-                        return true;
-                    }
-                    return false;
-                },
+                                .then(function () {
+                                    console.log("New user added to firestore");
+                                    window.location.assign("main.html");
+                                })
+                                .catch(function (error) {
+                                    console.log("Error happened " + error);
+                                });
+                        } else {
+                            return true;
+                        }
+                        return false;
+                    },
 
                     // User successfully signed in.
                     // Return type determines whether we continue the redirect automatically
                     // or whether we leave that to developer to handle.
-                uiShown: function () {
-                    // The widget is rendered.
-                    // Hide the loader.
-                    document.getElementById('loader').style.display = 'none';
-                }
-            },
-            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-            signInFlow: 'popup',
-            signInSuccessUrl: 'main.html',
-            signInOptions: [
-                // Leave the lines as is for the providers you want to offer your users.
-                firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            ],
-            // Terms of service url.
-            tosUrl: '<your-tos-url>',
-            // Privacy policy url.
-            privacyPolicyUrl: '<your-privacy-policy-url>'
-        };
-        // The start method will wait until the DOM is loaded.
-        ui.start('#firebaseui-auth-container', uiConfig);
-
+                    uiShown: function () {
+                        // The widget is rendered.
+                        // Hide the loader.
+                        document.getElementById('loader').style.display = 'none';
+                    }
+                },
+                // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+                signInFlow: 'popup',
+                credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+                signInSuccessUrl: 'javascript:window.close()',
+                signInOptions: [
+                    // Leave the lines as is for the providers you want to offer your users.
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                ],
+                // Terms of service url.
+                tosUrl: '<your-tos-url>',
+                // Privacy policy url.
+                privacyPolicyUrl: '<your-privacy-policy-url>'
+            };
+            // The start method will wait until the DOM is loaded.
+            ui.start('#firebaseui-auth-container', uiConfig);
 
 
     </script>
