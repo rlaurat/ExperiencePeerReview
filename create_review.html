@@ -11,10 +11,6 @@
 
     <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
     <style>
-        body {
-            background-color: #858585;
-            font-family: Arial, Helvetica, sans-serif;
-        }
 
         .container {
             border-radius: 8px;
@@ -123,7 +119,7 @@ input[type=range]::-webkit-slider-thumb {
          Your app may use that space for branding, controls and other customizations.-->
 
 </head>
-<body>
+<body style="background-color:#858585">
 <div id="nav-placeholder"></div>
 <h1>CREATE A REVIEW</h1>
 <h2><span id="programNameDisplay"></span></h2>
@@ -132,7 +128,7 @@ input[type=range]::-webkit-slider-thumb {
 <!--REVIEW DIV-->
 <div class="container">
 <form action="" style="text-align: center">
-    <div style="display:inline-block"  id="all_sliders">
+    <div  style="display:inline-block" id="all_sliders">
 <div class="slider">
     <p>Student Support: <span id="slider1">5</span></p>
     <input type="range"  id="s0" min="0" max="10" oninput="updateValue('slider1', this.value)">
@@ -170,7 +166,7 @@ input[type=range]::-webkit-slider-thumb {
 </div>
 
 <div class="button">
-    <button type="submit" onclick="checkEmptyReview()">Share Review</button>
+    <button type="button" onclick="checkEmptyReview()">Share Review</button>
 </div>
 
   </form>
@@ -185,7 +181,11 @@ input[type=range]::-webkit-slider-thumb {
 
     // check if comment section is empty
     function checkEmptyReview() {
-        if (document.getElementById('comment') == "") {
+        if(!localStorage.getItem('username')){
+            alert("Please log in first");
+            return;
+        }
+        else if (document.getElementById('comment') == "") {
             alert("Please enter a review");
             submitFormByClick();
 
