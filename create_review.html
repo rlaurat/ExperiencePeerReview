@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
+        <title>Create a Review</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
     <style>
         body {
+            background-color: #858585;
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            border-radius: 8px;
+            background-color: #f2f2f2;
+            padding: 15px;
+            width: 100%;
+        }
+        .slider {
+            padding: 5px;
+    width: 314px;
+    text-align: -webkit-center;
+        }
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-ms-track {
+  width: 250px;
+  cursor: pointer;
+
+
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+        input[type=text], select, textarea {
+            width: 250px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+        #all_sliders{
+
         }
     </style>
 
@@ -48,17 +124,22 @@
 
 </head>
 <body>
-
+<div id="nav-placeholder"></div>
 <h1>CREATE A REVIEW</h1>
 <h2><span id="programNameDisplay"></span></h2>
 
+
+<!--REVIEW DIV-->
+<div class="container">
+<form action="" style="text-align: center">
+    <div style="display:inline-block"  id="all_sliders">
 <div class="slider">
     <p>Student Support: <span id="slider1">5</span></p>
-    <input type="range" id="s0" min="0" max="10" oninput="updateValue('slider1', this.value)">
+    <input type="range"  id="s0" min="0" max="10" oninput="updateValue('slider1', this.value)">
 </div>
 
 <div class="slider">
-    <p>Social Experience: <span id="slider2">5</span></p>
+    <p class="col-lg-7">Social Experience: <span id="slider2">5</span></p>
     <input type="range" id="s1" min="0" max="10" oninput="updateValue('slider2', this.value)">
 </div>
 
@@ -76,11 +157,12 @@
         <p for="food">Overall : <span id="slider5">5</span></p>
         <input type="range" id="s4" min="0" max="10" oninput="updateValue('slider5', this.value)">
     </div>
-
+    </div>
 <div>
     <p>Comments:</p>
-    <textarea id="comments" name="user_comments" cols="50" rows="4"></textarea>
+    <textarea id="comments" cols="50" rows="5" name="user_comments"></textarea>
 </div>
+
 
 <div>
     <p>Jobs:</p>
@@ -91,6 +173,10 @@
     <button type="submit" onclick="checkEmptyReview()">Share Review</button>
 </div>
 
+  </form>
+
+</div>
+
 
 <script>
     function updateValue(id, val) {
@@ -99,7 +185,7 @@
 
     // check if comment section is empty
     function checkEmptyReview() {
-        if (document.getElementById('comment') === null) {
+        if (document.getElementById('comment') == "") {
             alert("Please enter a review");
             submitFormByClick();
 
@@ -113,8 +199,8 @@
         var programsRef = db.collection('Programs').doc(query[1]);
         programsRef.get().then(function(doc){
             document.getElementById("programNameDisplay").innerHTML = doc.data().FullName;
-        })
-       
+        });
+
     function submitFormByClick() {
         // declarations
         let s0 = parseInt(document.getElementById('s0').value);
@@ -147,14 +233,17 @@
 
     // check authentication
     // localStorage.setItem("username", "kevin Test"); use to TEST
-    let user = localStorage.getItem("username");
-    if (user === null) {
-        alert("Not logged in");
-        window.location.href = "index.html";
-    }
+    // let user = localStorage.getItem("username");
+    // if (user === null) {
+    //     alert("Not logged in");
+    //     window.location.href = "index.html";
+    // }
 
         // run function
-
+    $(function () {
+        $("#nav-placeholder").load("./navigation.html");
+        console.log("ok");
+    });
 </script>
 
 </body>
