@@ -71,9 +71,10 @@
   <a src="" class="active">ExperiencePeerReview</a>
   <a id="hideYoWife" style="display:none">""</a>
   <a href="main.html">Search for Reviews</a>
-  <a href="Contactus.html">Contact Us</a>
+  <a href="contact_us.html">Contact Us</a>
   <a href="#settings" id="settingNav" style="display: none">Account Settings</a>
-  <a href="login.html" id="loginNav" style="display: ">Sign in</a>
+  <a href="javascript:void(0);" id="loginNav" data-toggle="modal" data-target="#exampleModal"
+     style="display: ">Sign in</a>
   <a href="javascript:void(0);" id="logOutText_dropdown" style="display: none" onclick="logOutForceRefresh()">Log Out</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
@@ -82,7 +83,7 @@
 
 <div class="pageRightAlign" id="signInContainer">
     <a href="JAVASCRIPT:VOID(0)" data-toggle="modal" data-target="#exampleModal" id="signInText">LOG IN SIGN UP</a>
-    <a href="javascript:void(0)"; id="logOutText_right" style="display: none" onclick="logOutForceRefresh()">LOG OUT</a>
+    <a href="javascript:void(0)" id="logOutText_right" style="display: none" onclick="logOutForceRefresh()">LOG OUT</a>
 
 </div>
 
@@ -101,10 +102,13 @@
       </div>
       <div class="modal-body">
         <iframe src="login.html">
+
+
+
+        </iframe>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close After Signing in</button>
       </div>
     </div>
   </div>
