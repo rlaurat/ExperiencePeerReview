@@ -8,7 +8,43 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
+    <script>var __adobewebfontsappname__ = "dreamweaver"</script>
+    <script src="http://use.edgefonts.net/montserrat:n4:default.js" type="text/javascript"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
+    <!-- Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
+            authDomain: "experiencepeerreview.firebaseapp.com",
+            databaseURL: "https://experiencepeerreview.firebaseio.com",
+            projectId: "experiencepeerreview",
+            storageBucket: "experiencepeerreview.appspot.com",
+            messagingSenderId: "975792372955",
+            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // ref to firestore database
+        var db = firebase.firestore();
+    </script>
+
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>
+
+    <script>
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    </script>
   <style>
 #navbody {
   margin: 0;
@@ -65,7 +101,7 @@
 }
 </style>
 </head>
-<body id="navbody">
+<body>
 
 <div class="topnav" id="myTopnav">
   <a src="" class="active">ExperiencePeerReview</a>
@@ -75,15 +111,15 @@
   <a href="#settings" id="settingNav" style="display: none">Account Settings</a>
   <a href="javascript:void(0);" id="loginNav" data-toggle="modal" data-target="#exampleModal"
      style="display: ">Sign in</a>
-  <a href="javascript:void(0);" id="logOutText_dropdown" style="display: none" onclick="logOutForceRefresh()">Log Out</a>
+  <a href="javascript:void(0);" id="logOutText_dropdown" style="display: none" onclick="nav_LogOut()">Log Out</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
 </div>
 
 <div class="pageRightAlign" id="signInContainer">
-    <a href="JAVASCRIPT:VOID(0)" data-toggle="modal" data-target="#exampleModal" id="signInText">LOG IN SIGN UP</a>
-    <a href="javascript:void(0)" id="logOutText_right" style="display: none" onclick="logOutForceRefresh()">LOG OUT</a>
+    <a href="JAVASCRIPT:VOID(0);" data-toggle="modal" data-target="#exampleModal" id="signInText">LOG IN SIGN UP</a>
+    <a href="#" id="logOutText_right" style="display: none" onclick="nav_LogOut()" >LOG OUT</a>
 
 </div>
 
@@ -108,7 +144,7 @@
         </iframe>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close After Signing in</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.reload();">Close After Signing in</button>
       </div>
     </div>
   </div>
@@ -118,25 +154,51 @@
 <script>
   // localStorage.setItem('username', "test");
   // localStorage.removeItem('username');
+
+  // check Log in VIA firebase
+
+// var user = firebase.auth().currentUser;
+//   firebase.auth().onAuthStateChanged(function (user) {
+//       if (user) {
+//           localStorage.setItem('username', user.displayName);
+//           alert("run yes");
+//           nav_LogIn();
+//
+//       } else {
+//
+//           alert('no')
+//       }
+//   });
+
+  if(localStorage.getItem('username')) {
+      nav_LogIn();
+  }else {
+
+  }
+
+
 function nav_LogIn() {
-      if(localStorage.getItem('username') != null) { //if logged in
-        let username = localStorage.getItem('username');
-        console.log("here");
-        document.getElementById('hideYoWife').innerHTML = "Hi, " + username;
+        document.getElementById('hideYoWife').innerHTML = "Hi, " + localStorage.getItem('username');
         document.getElementById('hideYoWife').style.color = "white";
         document.getElementById('hideYoWife').style.display = "";
-        // document.getElementById("signInText").innerHTML = "LOG OUT";
         document.getElementById("loginNav").style.display = "none";
         document.getElementById("settingNav").style.display = "";
         document.getElementById("signInText").style.display = "none";
         document.getElementById('logOutText_right').style.display = "";
         document.getElementById('logOutText_dropdown').style.display = "";
-      }
 }
 
-function logOutForceRefresh() {
+function nav_LogOut() {
+        firebase.initializeApp(firebaseConfig);
+        firebase.auth().signOut();
+        localStorage.removeItem('username');
         localStorage.clear();
-        location.reload();
+        document.getElementById('hideYoWife').style.display = "none";
+        document.getElementById("loginNav").style.display = "";
+        document.getElementById("settingNav").style.display = "none";
+        document.getElementById("signInText").style.display = "";
+        document.getElementById('logOutText_right').style.display = "none";
+        document.getElementById('logOutText_dropdown').style.display = "none";
     }
 
 function myFunction() {
@@ -148,9 +210,9 @@ function myFunction() {
   }
 }
 
-nav_LogIn();
+
   // LOG IN POPUP
-  $(window).load(function(){
+$(window).load(function(){
     $('#exampleModal').modal('show').modal('handleUpdate');
 });
 
