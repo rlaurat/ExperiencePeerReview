@@ -3,7 +3,7 @@
 <head>
 
     <style>
-        .mainbutton{
+        .mainbutton {
             background-color: #003e6b;
             padding: 25px;
             width: 25%;
@@ -16,7 +16,8 @@
             text-align: center;
             vertical-align: middle;
         }
-        .mainbutton:hover{
+
+        .mainbutton:hover {
             border: 3px solid #ebb805;
         }
 
@@ -28,6 +29,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
+    <script src="public/firebase.js"></script>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -37,24 +40,6 @@
     https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-
-
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
-            authDomain: "experiencepeerreview.firebaseapp.com",
-            databaseURL: "https://experiencepeerreview.firebaseio.com",
-            projectId: "experiencepeerreview",
-            storageBucket: "experiencepeerreview.appspot.com",
-            messagingSenderId: "975792372955",
-            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        // ref to firestore database
-        var db = firebase.firestore();
-    </script>
 
 
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
@@ -68,32 +53,33 @@
          Your app may use that space for branding, controls and other customizations.-->
 </head>
 
-<body  style="background-color:#858585">
+<body style="background-color:#858585">
 
 <div id="nav-placeholder"></div>
 
 <!-- <img src="images/BCITlogo.png" alt="" width="487" height="489" class="centerOfScreen" id="bcitLOGO"/> -->
 <div class="locationPeerReviewTitle"><p>Welcome, <span id="username">""</span></p></div>
 
-    <div class="mainbutton" id="search">
-        Search Reviews
-    </div>
+<div class="mainbutton" id="search">
+    Search Reviews
+</div>
 
-    <div class="mainbutton" id="write">
-        Write A Review
-    </div>
+<div class="mainbutton" id="write">
+    Write A Review
+</div>
 
 
 <label>Select a Program</label>
-<select id = "progList">
-  <!-- <option value = "1">Computer Systems Technology</option>
-  <option value = "2">Computer Information Technology</option>
-  <option value = "3">Software Systems Development</option> -->
+<select id="progList">
+    <!-- <option value = "1">Computer Systems Technology</option>
+    <option value = "2">Computer Information Technology</option>
+    <option value = "3">Software Systems Development</option> -->
 </select>
 
 <script>
     let val = document.getElementById("progList").value;
     console.log(val);
+
     function getPrograms() {
         var programsRef = db.collection('Programs');
         programsRef.get().then(function (querySnapshot) {
@@ -103,17 +89,19 @@
             })
         });
     }
+
     getPrograms()
     document.getElementById("search").onclick = toSearch;
     document.getElementById("write").onclick = toWrite;
 
-    function toSearch(){
+    function toSearch() {
         let prgm = document.getElementById("progList").value;
-        window.location.href = "format.html?"+prgm;
+        window.location.href = "format.html?" + prgm;
     }
-    function toWrite(){
+
+    function toWrite() {
         prgm = document.getElementById("progList").value;
-        window.location.href = "create_review.html?"+prgm;
+        window.location.href = "create_review.html?" + prgm;
     }
 
     //authenticates user. continue if OK.
