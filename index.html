@@ -143,7 +143,14 @@
 <script>
     $(document).ready(function(){
         $("#write").click(function(){
-            $("#loginModal").modal();
+            if (localStorage.getItem("username")) {
+                let prgm = document.getElementById("progList").value;
+                window.location.href = "create_review.html?"+prgm;
+            }
+
+            else {
+                $("#loginModal").modal();
+            }
         });
     });
 
