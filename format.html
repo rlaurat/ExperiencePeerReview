@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Review Feed</title>
 
     <style>
+        #rvwContainer{
+            width: 50%;
+            height: 25%;
+            margin: auto;
+            border: 3px solid #858585;
+            padding: 10px;
+            /*display: inline-table;*/
+        }
     .value{
         background-color: rgb(207, 206, 206);
         float: right;
@@ -21,10 +29,39 @@
         float: right;
         text-align: center;
         width: 45%;
-        height: 8%;
+        /*height: 8%;*/
         border:2px solid rgb(241, 241, 241);
         padding: 1%;
     }
+    #comment{
+        background-color: rgb(241, 241, 241);
+        float: left;
+        width: 45%;
+        height: 90%;
+        padding: 1%;
+        border: 2px solid #858585;
+    }
+    h1,
+    h2{
+        text-align: center;
+    }
+        @media (max-width: 700px)
+{
+ #rvwcontainer {
+     width : 80%;
+     height: 50%;
+  }
+ .value {
+     width : 95%;
+     height: 5%;
+     margin: auto;
+     float: left
+  }
+ #comment{
+     width: 95%;
+     height: 50%
+ }
+}
     </style>
 
 
@@ -82,19 +119,11 @@
         function Review(comment, val, job){
             this.rvw = document.createElement("div");
             this.rvw.style.backgroundColor = '#003e6b';
-            this.rvw.style.width = "50%";
-            this.rvw.style.height = "25%";
-            this.rvw.style.margin = 'auto';
-            this.rvw.style.border = '3px solid #858585' ;
-            this.rvw.style.padding = "10px";
+            this.rvw.id = "rvwContainer";
             document.body.appendChild(this.rvw);
             this.cmt = document.createElement("div");
             this.cmt.innerHTML = comment;
-            this.cmt.style.backgroundColor = "rgb(241, 241, 241)";
-            this.cmt.style.float = "left";
-            this.cmt.style.width = "45%";
-            this.cmt.style.height = "90%"
-            this.cmt.style.padding = "1%";
+            this.cmt.id = "comment";
             this.rvw.appendChild(this.cmt);
             this.value1 = document.createElement("div");
             this.value1.innerHTML = "Student Support: "+val[0]+"/10";
@@ -119,7 +148,7 @@
             else{
                 this.job.innerHTML = "Employment: N/A"
             }
-            this.job.className = "job";
+            this.job.className = "value";
             this.rvw.appendChild(this.job);
         }
 
