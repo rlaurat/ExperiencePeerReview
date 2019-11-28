@@ -3,12 +3,12 @@
 <head>
     <title>Experience Peer Review</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
     <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
@@ -107,14 +107,38 @@
         <div class="col-4"></div>
         <div class="col-4">
             <div class="mainbutton" id="write">
-            Write A Review
+                Write A Review
             </div>
         </div>
         <div class="col-4"></div>
     </div>
 </div>
+    <!-- Modal -->
+    <div id="loginModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Login/Signup</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script>
+    $(document).ready(function(){
+        $("#write").click(function(){
+            $("#loginModal").modal();
+        });
+    });
+
     let val = document.getElementById("progList").value;
     console.log(val);
 
@@ -131,16 +155,16 @@
     getPrograms();
 
     document.getElementById("search").onclick = toSearch;
-    document.getElementById("write").onclick = toWrite;
+    //document.getElementById("write").onclick = toWrite;
 
     function toSearch(){
         let prgm = document.getElementById("progList").value;
         window.location.href = "format.html?"+prgm;
     }
 
-    function toWrite(){
-        window.location.href = "login.html?";
-    }
+   /*function toWrite() {
+       $('#loginModal').modal('show');
+   }*/
 
     $(function () {
         $("#nav-placeholder").load("./navigation.html");
