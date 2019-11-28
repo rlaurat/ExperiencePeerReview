@@ -26,15 +26,9 @@
         padding: 1%;
     }
     </style>
-</head>
-<div class='container'>
 
-</div>
-<body>
 
-    <h1>Review Feed</h1>
-    <h2 id="program"></h2>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
@@ -61,6 +55,18 @@
         // ref to firestore database
         var db = firebase.firestore();
     </script>
+
+</head>
+<div class='container'>
+
+</div>
+<body>
+<div id="nav-placeholder"></div>
+
+    <h1>Review Feed</h1>
+    <h2 id="program"></h2>
+
+
 
     <script>
         
@@ -137,7 +143,11 @@
         });
         }
 
-    getPrograms()
+    getPrograms();
+       //JQUERY TO LOAD NAVBAR
+            $(function () {
+        $("#nav-placeholder").load("./navigation.html");
+    });
     </script>
 </body>
 </html>

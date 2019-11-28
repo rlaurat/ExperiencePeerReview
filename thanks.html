@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Thanks</title>
     <style>
     .mainbutton{
         background-color: #003e6b;
@@ -24,23 +24,9 @@
         border: 3px solid #ebb805;
     }
     </style>
-</head>
-<div class='container'>
 
-</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<body>
-
-    <h1>Thank You For Reviewing: </h1>
-    <h2 id="program"></h2>
-
-    <div class="mainbutton" id="home">
-            Return to Home
-        </div>
-    
-        <div class="mainbutton" id="feed">
-            View Review Feed
-        </div>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
@@ -66,6 +52,27 @@
         // ref to firestore database
         var db = firebase.firestore();
     </script>
+</head>
+
+
+
+<div class='container'>
+
+</div>
+
+<body>
+<div id="nav-placeholder"></div>
+
+    <h1>Thank You For Reviewing: </h1>
+    <h2 id="program"></h2>
+
+    <div class="mainbutton" id="home">
+            Return to Home
+        </div>
+    
+        <div class="mainbutton" id="feed">
+            View Review Feed
+        </div>
 
 <script>
     let program_name = decodeURIComponent(window.location.search);
@@ -85,6 +92,10 @@
         window.location.href = "format.html?"+query[1];
     }
 
+    //JQUERY TO ADD NAVBAR
+    $(function () {
+        $("#nav-placeholder").load("./navigation.html");
+    });
 </script>
 
 </body>
