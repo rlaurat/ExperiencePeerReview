@@ -58,7 +58,8 @@
                             })
                                 .then(function () {
                                     console.log("New user added to firestore");
-                                    window.location.assign("main.html");
+                                    // window.location.assign("main.html");
+                                    document.write("Logged in. Please close this window to continue.")
                                 })
                                 .catch(function (error) {
                                     console.log("Error happened " + error);
