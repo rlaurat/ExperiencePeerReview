@@ -82,7 +82,7 @@
                 // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
                 signInFlow: 'popup',
                 credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-                signInSuccessUrl: 'javascript:window.close()',
+                signInSuccessUrl: "#",
                 signInOptions: [
                     // Leave the lines as is for the providers you want to offer your users.
                     firebase.auth.EmailAuthProvider.PROVIDER_ID,
@@ -95,14 +95,16 @@
             // The start method will wait until the DOM is loaded.
             ui.start('#firebaseui-auth-container', uiConfig);
 
-
     </script>
 </head>
 <body>
 <script>
     firebase.auth().onAuthStateChanged(function (user){
+        if(user){
+            document.write("Logged in. Please close this window to continue.");
+        }
         localStorage.setItem("username", user.displayName);
-
+        localStorage.setItem("uid", user.uid);
     });
 
 </script>
