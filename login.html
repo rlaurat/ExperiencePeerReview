@@ -65,7 +65,7 @@
                                     console.log("Error happened " + error);
                                 });
                         } else {
-                            return true;
+                            document.write("Logged in. Please close this window to continue.");
                         }
                         return false;
                     },
@@ -100,9 +100,7 @@
 <body>
 <script>
     firebase.auth().onAuthStateChanged(function (user){
-        if(user){
-            document.write("Logged in. Please close this window to continue.");
-        }
+
         localStorage.setItem("username", user.displayName);
         localStorage.setItem("uid", user.uid);
     });
