@@ -43,7 +43,7 @@
     <!-- The surrounding HTML is left untouched by FirebaseUI.
          Your app may use that space for branding, controls and other customizations.-->
     <style>
-        .mainbutton{
+        .mainbutton {
             background-color: #003e6b;
             padding: 15%;
             /*width: 25%;*/
@@ -56,7 +56,8 @@
             text-align: center;
             vertical-align: middle;
         }
-        .mainbutton:hover{
+
+        .mainbutton:hover {
             border: 3px solid #ebb805;
         }
     </style>
@@ -82,37 +83,37 @@
         </div>
     </div>
 
-<div class = "container">
-    <br>
-    <div class="row">
-        <div class="col-4"></div>
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-4"></div>
             <div class="col-4">
                 <label>Search</label>
-                    <select id = "progList">
-                        <option value="default">Search Programs...</option>
-                    </select>
+                <select id="progList">
+                    <option value="default">Search Programs...</option>
+                </select>
             </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
-            <div class="mainbutton" id="search">
-                Search Reviews
-            </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
-            <div class="mainbutton" id="write">
-                Write A Review
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="mainbutton" id="search">
+                    Search Reviews
+                </div>
             </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="mainbutton" id="write">
+                    Write A Review
+                </div>
+            </div>
+            <div class="col-4"></div>
+        </div>
     </div>
-</div>
     <!-- Modal -->
     <div id="loginModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -132,71 +133,74 @@
         </div>
     </div>
 
-<script>
-    $(document).ready(function(){
-        $("#write").click(function(){
-            if (localStorage.getItem("username")) {
-                let prgm = document.getElementById("progList").value;
-                if (prgm === "default") {
-                    alert("Please select a program to continue.");
+    <script>
+        $(document).ready(function () {
+            $("#write").click(function () {
+                if (localStorage.getItem("username")) {
+                    let prgm = document.getElementById("progList").value;
+                    if (prgm === "default") {
+                        alert("Please select a program to continue.");
+                    } else {
+                        window.location.href = "create_review.html?" + prgm;
+                    }
+                } else {
+                    $("#loginModal").modal();
                 }
-                else {
-                    window.location.href = "create_review.html?"+prgm;
+            });
+        });
+
+        let val = document.getElementById("progList").value;
+        console.log(val);
+
+        function getPrograms() {
+            var programsRef = db.collection('Programs');
+            programsRef.get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    progSelect = document.getElementById('progList');
+                    progSelect.options[progSelect.options.length] = new Option(doc.data().FullName, doc.id)
+                })
+            });
+        }
+
+        getPrograms();
+
+        document.getElementById("search").onclick = toSearch;
+
+        //document.getElementById("write").onclick = toWrite;
+
+        function toSearch() {
+            let prgm = document.getElementById("progList").value;
+            if (prgm === "default") {
+                alert("Please select a program to continue.");
+            } else {
+                window.location.href = "format.html?" + prgm;
+            }
+        }
+
+        function checkBirthday() {
+            if (localStorage.getItem('username')) {
+                let today = new Date();
+                let date = (today.getMonth() + 1) + "-" + today.getDate();
+                birthday = localStorage.getItem('birthday');
+                if (birthday) {
+                    var userBirthday = birthday.slice(5);
+                }
+
+                if (date === userBirthday) {
+                    alert("Happy Birthday!")
                 }
             }
+        }
 
-            else {
-                $("#loginModal").modal();
-            }
+        checkBirthday();
+        /*function toWrite() {
+            $('#loginModal').modal('show');
+        }*/
+
+        $(function () {
+            $("#nav-placeholder").load("./navigation.html");
         });
-    });
 
-    let val = document.getElementById("progList").value;
-    console.log(val);
-
-    function getPrograms() {
-        var programsRef = db.collection('Programs');
-        programsRef.get().then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                progSelect = document.getElementById('progList');
-                progSelect.options[progSelect.options.length] = new Option(doc.data().FullName, doc.id)
-            })
-        });
-    }
-
-    getPrograms();
-
-    document.getElementById("search").onclick = toSearch;
-    //document.getElementById("write").onclick = toWrite;
-
-    function toSearch(){
-        let prgm = document.getElementById("progList").value;
-        if (prgm === "default") {
-            alert("Please select a program to continue.");
-        }
-
-        else {
-            window.location.href = "format.html?" + prgm;
-        }
-    }
-    function checkBirthday(){
-        let today = new Date();
-        let date = (today.getMonth()+1) + "-" + today.getDate();
-        let birthday = localStorage.getItem('birthday');
-        let userBirthday = birthday.slice(5);
-        if(date === userBirthday){
-            alert("Happy Birthday!")
-        }
-    }
-    checkBirthday();
-   /*function toWrite() {
-       $('#loginModal').modal('show');
-   }*/
-
-    $(function () {
-        $("#nav-placeholder").load("./navigation.html");
-    });
-
-</script>
+    </script>
 </body>
 </html>

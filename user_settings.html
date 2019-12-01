@@ -87,11 +87,12 @@
     // }
 
     function setUsername() {
-        let username = localStorage.getItem('username');
-            document.getElementById('user').innerHTML = username;
+        let user = localStorage.getItem('username');
+            alert('user='+user);
+            document.getElementById('user').innerHTML = user;
     }
 
-    function viewReview() {
+    function getBirthday() {
         let uid = localStorage.getItem('uid');
         db.collection('Users').doc(uid).get().then(function (doc) {
             if (doc.exists) {
@@ -123,7 +124,7 @@
 
     setUsername();
 
-    viewReview();
+    getBirthday();
 
 </script>
 <script>

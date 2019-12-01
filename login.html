@@ -99,10 +99,17 @@
 </head>
 <body>
 <script>
-    firebase.auth().onAuthStateChanged(function (user){
+    firebase.auth().onAuthStateChanged(function (user) {
 
         localStorage.setItem("username", user.displayName);
         localStorage.setItem("uid", user.uid);
+        let uid = localStorage.getItem('uid');
+            db.collection('Users').doc(uid).get().then(function (doc) {
+                if (doc.exists) {
+                    let birthday = doc.data().birthday;
+                    localStorage.setItem('birthday', birthday);
+                }
+            });
     });
 
 </script>
