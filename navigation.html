@@ -32,7 +32,7 @@
             appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
         };
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig, "navbar");
         // ref to firestore database
         var db = firebase.firestore();
     </script>
@@ -104,11 +104,11 @@
 <body>
 
 <div class="topnav" id="myTopnav">
-  <a src="" class="active">ExperiencePeerReview</a>
+  <a src="index.html" class="active">ExperiencePeerReview</a>
   <a id="hideYoWife" style="display:none">""</a>
   <a href="index.html">Search for Reviews</a>
   <a href="contact_us.html">Contact Us</a>
-  <a href="#settings" id="settingNav" style="display: none">Account Settings</a>
+  <a href="user_settings.html" id="settingNav" style="display: none">Account Settings</a>
   <a href="javascript:void(0);" id="loginNav" data-toggle="modal" data-target="#exampleModal"
      style="display: ">Sign in</a>
   <a href="javascript:void(0);" id="logOutText_dropdown" style="display: none" onclick="nav_LogOut()">Log Out</a>
