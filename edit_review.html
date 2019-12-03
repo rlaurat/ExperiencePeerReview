@@ -173,6 +173,10 @@ input[type=range]::-webkit-slider-thumb {
         <button type="button" onclick="deleteReview()">Delete Review</button>
 </div>
 
+<div class="button">
+        <button type="button" onclick="back()">Cancel</button>
+</div>
+
   </form>
 
 </div>
@@ -227,9 +231,13 @@ input[type=range]::-webkit-slider-thumb {
             document.getElementById('slider5').innerHTML = doc.data().slider[4];
 
             document.getElementById('comments').innerHTML = doc.data().review_text;
-            document.getElementById('job').innerHTML = doc.data().job;
+            document.getElementById('jobs').innerHTML = doc.data().job;
         })
 
+
+    function back(){
+        window.location.href = "history.html?" + program;
+    }
 
     function deleteReview() {
         db.collection("Programs").doc(program).collection("Reviews").doc(docid).delete().then(function () {

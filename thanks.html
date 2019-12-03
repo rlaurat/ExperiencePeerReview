@@ -71,6 +71,10 @@
         <div class="mainbutton" id="feed">
             View Review Feed
         </div>
+
+        <div class="mainbutton" id="del">
+            My Review History
+        </div>
 </div>
 <script>
     let messages = {del: "Your Review has been deleted from:", thx: "Thank You For Reviewing:", up: "Your Review has been updated for:"}
@@ -84,12 +88,16 @@
     document.getElementById('msg').innerHTML = messages[query[2]];
     document.getElementById("home").onclick = toHome;
     document.getElementById("feed").onclick = toFeed;
+    document.getElementById("del").onclick = toHistory;
 
     function toHome(){
         window.location.href = "main.html"
     }
     function toFeed(){
         window.location.href = "format.html?"+query[1];
+    }
+    function toHistory(){
+        window.location.href = "history.html?"+query[1];
     }
 
     //JQUERY TO ADD NAVBAR

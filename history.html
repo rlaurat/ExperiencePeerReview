@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Review History</title>
-
-    <style>
-        .rvwContainer {
-            width: 50%;
-            height: 25%;
+   <style>
+        .rvwContainer{
+            width: 70%;
+            height: 40%;
             margin: auto;
             border: 3px solid #858585;
             padding: 10px;
@@ -18,61 +17,68 @@
         }
 
         .rvwContainer:hover{
-            border: 3px solid #ebb805;
+            border: 2px solid #ebb805
         }
-
-        .value {
-            background-color: rgb(207, 206, 206);
-            float: right;
-            text-align: center;
-            width: 45%;
-            height: 20%;
-            border: 2px solid #858585;
-            padding: 1%;
-        }
-
-        .job {
-            background-color: #858585;
-            float: right;
-            text-align: center;
-            width: 45%;
-            /*height: 8%;*/
-            border: 2px solid rgb(241, 241, 241);
-            padding: 1%;
-        }
-
-        #comment {
-            background-color: rgb(241, 241, 241);
-            float: left;
-            width: 45%;
-            height: 90%;
-            padding: 1%;
-            border: 2px solid #858585;
-        }
-
-        h1,
-        h2 {
-            text-align: center;
-        }
-
+    .value{
+        background-color: rgb(207, 206, 206);
+        float: right;
+        text-align: center;
+        width: 45%;
+        right: 1%;
+        /*position: relative;*/
+        /*height: 100;*/
+        border:2px solid #858585;
+        padding: 1%;
+    }
+    .job{
+        background-color: #858585;
+        float: right;
+        text-align: center;
+        width: 45%;
+        /*height: 8%;*/
+        border:2px solid rgb(241, 241, 241);
+        padding: 1%;
+    }
+    #comment{
+        background-color: rgb(241, 241, 241);
+        float: left;
+        width: 45%;
+        height: 90%;
+        padding: 1%;
+        border: 2px solid #858585;
+        overflow-y: scroll;
+    }
+    h1,
+    h2{
+        text-align: center;
+    }
         @media (max-width: 700px) {
-            .rvwcontainer {
-                width: 80%;
-                height: 50%;
-            }
+ .rvwcontainer {
+            width: 350px;
+            height: 50%;
+            /*margin: 5px;*/
+            border: 3px solid #858585;
+            padding: 10px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            /*left: 50%;*/
+  }
+    .value{
+        background-color: rgb(207, 206, 206);
+        float: initial;
 
-            .value {
-                width: 95%;
-                height: 10%;
-                margin: auto;
-                float: left
-            }
-
-            #comment {
-                width: 95%;
-                height: 40%
-            }
-        }
+        text-align: center;
+        /*display: ;*/
+        width: 307.8px;
+        /*height: 100;*/
+        border:2px solid #858585;
+        /*padding: 1%;*/
+    }
+ #comment{
+     width: 95%;
+     height: 45%
+ }
+}
     </style>
 
 
