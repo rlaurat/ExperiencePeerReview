@@ -8,13 +8,17 @@
     <title>Review History</title>
 
     <style>
-        #rvwContainer {
+        .rvwContainer {
             width: 50%;
             height: 25%;
             margin: auto;
             border: 3px solid #858585;
             padding: 10px;
             /*display: inline-table;*/
+        }
+
+        .rvwContainer:hover{
+            border: 3px solid #ebb805;
         }
 
         .value {
@@ -52,7 +56,7 @@
         }
 
         @media (max-width: 700px) {
-            #rvwcontainer {
+            .rvwcontainer {
                 width: 80%;
                 height: 50%;
             }
@@ -124,10 +128,11 @@
             document.getElementById("program").innerHTML = doc.data().FullName;
         })
 
-        function Review(comment, val, job) {
+        function Review(comment, val, job, id) {
             this.rvw = document.createElement("div");
+            this.rvw.id = id;
             this.rvw.style.backgroundColor = '#003e6b';
-            this.rvw.id = "rvwContainer";
+            this.rvw.className = "rvwContainer";
             document.body.appendChild(this.rvw);
             this.cmt = document.createElement("div");
             this.cmt.innerHTML = comment;
@@ -158,9 +163,14 @@
             }
             this.job.className = "value";
             this.rvw.appendChild(this.job);
+            this.rvw.onclick = toEdit
         }
 
         reviewArray = [];
+
+        function toEdit() {
+            window.location.href = "edit_review.html?" + program + '?' + this.id;
+        }
 
         function getPrograms() {
             var programsRef = db.collection('Programs').doc(program).collection("Reviews").where("user_ID", "==", user_name);
@@ -170,11 +180,12 @@
                     let text = doc.data().review_text;
                     let values = doc.data().slider;
                     let job = doc.data().job;
-                    dataArray.unshift([text, values, job])
-                    //reviewArray.unshift(Review(text, values));
+                    let docid = doc.id;
+                    dataArray.unshift([text, values, job, docid])
                 })
                 for (i = 0; i < dataArray.length; i++) {
-                    reviewArray.push(Review(dataArray[i][0], dataArray[i][1]));
+                    console.log(dataArray[i][3]);
+                    reviewArray.push(Review(dataArray[i][0], dataArray[i][1], dataArray[i][2], dataArray[i][3]));
                 }
             })
             .catch(function(error){

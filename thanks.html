@@ -61,7 +61,7 @@
 <div id="nav-placeholder"></div>
 <div class="centerOfScreen">
 
-    <h1>Thank You For Reviewing: </h1>
+    <h1 id='msg'> </h1>
     <h2 id="program"></h2>
 
     <div class="mainbutton" id="home">
@@ -73,13 +73,15 @@
         </div>
 </div>
 <script>
+    let messages = {del: "Your Review has been deleted from:", thx: "Thank You For Reviewing:", up: "Your Review has been updated for:"}
+
     let program_name = decodeURIComponent(window.location.search);
         var query = program_name.split("?");
         var programsRef = db.collection('Programs').doc(query[1]);
         programsRef.get().then(function(doc){
             document.getElementById("program").innerHTML = doc.data().FullName;
         })
-
+    document.getElementById('msg').innerHTML = messages[query[2]];
     document.getElementById("home").onclick = toHome;
     document.getElementById("feed").onclick = toFeed;
 

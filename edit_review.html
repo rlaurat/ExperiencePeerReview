@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-        <title>Create a Review</title>
+        <title>Edit Review</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
 
@@ -121,7 +121,7 @@ input[type=range]::-webkit-slider-thumb {
 </head>
 <body style="background-color:#858585">
 <div id="nav-placeholder"></div>
-<h1>CREATE A REVIEW</h1>
+<h1>EDIT REVIEW</h1>
 <h2><span id="programNameDisplay"></span></h2>
 
 
@@ -130,27 +130,27 @@ input[type=range]::-webkit-slider-thumb {
 <form action="" style="text-align: center">
     <div  style="display:inline-block" id="all_sliders">
 <div class="slider">
-    <p>Student Support: <span id="slider1">5</span></p>
+    <p>Student Support: <span id="slider1"></span></p>
     <input type="range"  id="s0" min="0" max="10" oninput="updateValue('slider1', this.value)">
 </div>
 
 <div class="slider">
-    <p class="col-lg-7">Social Experience: <span id="slider2">5</span></p>
+    <p class="col-lg-7">Social Experience: <span id="slider2"></span></p>
     <input type="range" id="s1" min="0" max="10" oninput="updateValue('slider2', this.value)">
 </div>
 
 <div class="slider">
-    <p>Workload: <span id="slider3">5</span></p>
+    <p>Workload: <span id="slider3"></span></p>
     <input type="range" id="s2" min="0" max="10" oninput="updateValue('slider3', this.value)">
 </div>
 
 <div class="slider">
-    <p for="food">Job Prospect: <span id="slider4">5</span></p>
+    <p for="food">Job Prospect: <span id="slider4"></span></p>
     <input type="range" id="s3" min="0" max="10" oninput="updateValue('slider4', this.value)">
 </div>
 
     <div class="slider">
-        <p for="food">Overall : <span id="slider5">5</span></p>
+        <p for="food">Overall : <span id="slider5"></span></p>
         <input type="range" id="s4" min="0" max="10" oninput="updateValue('slider5', this.value)">
     </div>
     </div>
@@ -166,7 +166,11 @@ input[type=range]::-webkit-slider-thumb {
 </div>
 
 <div class="button">
-    <button type="button" onclick="checkEmptyReview()">Share Review</button>
+    <button type="button" onclick="checkEmptyReview()">Update Review</button>
+</div>
+
+<div class="button">
+        <button type="button" onclick="deleteReview()">Delete Review</button>
 </div>
 
   </form>
@@ -178,7 +182,6 @@ input[type=range]::-webkit-slider-thumb {
     function updateValue(id, val) {
         document.getElementById(id).innerHTML = val;
     }
-
     // check if comment section is empty
     function checkEmptyReview() {
         if(!localStorage.getItem('username')){
@@ -194,12 +197,48 @@ input[type=range]::-webkit-slider-thumb {
         }
     }
 
-        let program_name = decodeURIComponent(window.location.search);
-        var query = program_name.split("?");
-        var programsRef = db.collection('Programs').doc(query[1]);
+        let url = decodeURIComponent(window.location.search);
+        var query = url.split("?");
+        let program = query[1];
+        let docid = query[2];
+        let programsRef = db.collection('Programs').doc(program);
         programsRef.get().then(function(doc){
             document.getElementById("programNameDisplay").innerHTML = doc.data().FullName;
         });
+
+        let review = programsRef.collection('Reviews').doc(docid)
+        review.get().then(function(doc){
+            document.getElementById('s0').value = doc.data().slider[0];
+            document.getElementById('slider1').innerHTML = doc.data().slider[0];
+            
+            document.getElementById('s1').value = doc.data().slider[1];
+            document.getElementById('slider2').innerHTML = doc.data().slider[1];
+
+            
+            document.getElementById('s2').value = doc.data().slider[2];
+            document.getElementById('slider3').innerHTML = doc.data().slider[2];
+
+            
+            document.getElementById('s3').value = doc.data().slider[3];
+            document.getElementById('slider4').innerHTML = doc.data().slider[3];
+
+            
+            document.getElementById('s4').value = doc.data().slider[4];
+            document.getElementById('slider5').innerHTML = doc.data().slider[4];
+
+            document.getElementById('comments').innerHTML = doc.data().review_text;
+            document.getElementById('job').innerHTML = doc.data().job;
+        })
+
+
+    function deleteReview() {
+        db.collection("Programs").doc(program).collection("Reviews").doc(docid).delete().then(function () {
+            console.log("Document successfully deleted!");
+            window.location.href = "thanks.html?"+program+"?del";
+        }).catch(function (error) {
+            console.error("Error removing document: ", error);
+        });
+    }
 
     function submitFormByClick() {
         // declarations
@@ -214,7 +253,7 @@ input[type=range]::-webkit-slider-thumb {
         let user = localStorage.getItem("username");
         let timestamp = new Date();
         // let user = "test user";
-        db.collection("Programs").doc(program).collection("Reviews").add({
+        db.collection("Programs").doc(program).collection("Reviews").doc(docid).set({
             slider: [s0, s1, s2, s3, s4],
             review_text: review_textbox,
             user_ID: user,
@@ -224,7 +263,7 @@ input[type=range]::-webkit-slider-thumb {
 
             .then(function () {
                 alert("success!");
-                window.location.href = "thanks.html?"+query[1]+"?thx";
+                window.location.href = "thanks.html?"+query[1] + "?up";
             })
             .catch(function (error) {
                 alert("error", error);
