@@ -156,13 +156,24 @@
         function checkBirthday() {
             if (localStorage.getItem('username')) {
                 let today = new Date();
-                let date = (today.getMonth() + 1) + "-" + today.getDate();
+
+                let date = (today.getFullYear() + "-" + today.getMonth()) + "-" + today.getDate();
                 birthday = localStorage.getItem('birthday');
+
                 if (birthday) {
-                    var userBirthday = birthday.slice(5);
+                    // alert("userbirthday" + birthday)
+                    // alert("todaydate" + date)
+                    var userDay  = parseInt(birthday.split("-")[2]);
+                    var userMonth= parseInt(birthday.split("-")[1]);
+                    var todayDay  = parseInt(date.split("-")[2]);
+                    var todayMonth= parseInt(date.split("-")[1])+1;
+                    // alert(userDay)
+                    // alert(userMonth)
+                    // alert(todayDay)
+                    // alert(todayMonth)
                 }
 
-                if (date === userBirthday) {
+                if ((userDay === todayDay) && (userMonth === todayMonth)) {
                     alert("Happy Birthday!")
                 }
             }
