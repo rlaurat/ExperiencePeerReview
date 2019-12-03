@@ -18,9 +18,18 @@ body {
     transform: translateX(-50%);
 }
 
+.imageCentre {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 #bcitLOGO {
     width: 100px;
     height: 100px;
+    text-align: center;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 
@@ -37,6 +46,7 @@ body {
 .locationPeerReviewTitle {
     font-size: xx-large;
     color: rgba(255, 255, 255, 1.00);
+    text-align: center;
 }
 
 #signInContainer {
@@ -51,6 +61,24 @@ body {
     font-size: small;
     color: rgba(255, 255, 255, 1.00);
     /*text-decoration: none;*/
+}
+
+.mainbutton {
+    background-color: #003e6b;
+    padding: 15%;
+    /*width: 25%;*/
+    /* margin-right:auto;
+    margin-left:auto;
+    margin-top: auto;
+    margin-bottom: auto; */
+    border: 3px solid #858585;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.mainbutton:hover {
+    border: 3px solid #ebb805;
 }
 
 /* HAMBURGER MENU */

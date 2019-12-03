@@ -42,71 +42,34 @@
     </script>
     <!-- The surrounding HTML is left untouched by FirebaseUI.
          Your app may use that space for branding, controls and other customizations.-->
-    <style>
-        .mainbutton {
-            background-color: #003e6b;
-            padding: 15%;
-            /*width: 25%;*/
-            /* margin-right:auto;
-            margin-left:auto;
-            margin-top: auto;
-            margin-bottom: auto; */
-            border: 3px solid #858585;
-            color: white;
-            text-align: center;
-            vertical-align: middle;
-        }
 
-        .mainbutton:hover {
-            border: 3px solid #ebb805;
-        }
-    </style>
 
 </head>
 
 
-<body>
+<div>
 
 
 <!--navigation bar placeholder-->
 <div id="nav-placeholder"></div>
 
 <!--BOOTSTRAP CENTRE ITEMS-->
-<div class="container">
-    <div class="row">
-        <div class="col-sm text-center">
+<div class="centerOfScreen">
             <br>
             <img src="images/BCITlogo.png" alt="" id="bcitLOGO"/>
             <div class="locationPeerReviewTitle">
                 <p> PEER REVIEWS</p>
             </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <br>
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
                 <label>Search</label>
                 <select id="progList">
                     <option value="default">Search Programs...</option>
                 </select>
-            </div>
-            <div class="col-4"></div>
-        </div>
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
+
                 <div class="mainbutton" id="search">
                     Search Reviews
                 </div>
-            </div>
-            <div class="col-4"></div>
-        </div>
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
+
                 <div class="mainbutton" id="write">
                     Write A Review
                 </div>
@@ -123,6 +86,9 @@
             <div class="col-4"></div>
         </div>
     </div>
+</div>
+
+
     <!-- Modal -->
     <div id="loginModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
