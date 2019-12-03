@@ -105,7 +105,7 @@
 
 <div class="topnav" id="myTopnav">
   <a href="index.html" class="active">ExperiencePeerReview</a>
-  <a id="hideYoWife" style="display:none">""</a>
+  <a id="showUsername" style="display:none">""</a>
   <a href="index.html">Home</a>
   <a href="contact_us.html">Contact Us</a>
   <a href="user_settings.html" id="settingNav" style="display: none">Account Settings</a>
@@ -178,9 +178,9 @@
 
 
 function nav_LogIn() {
-        document.getElementById('hideYoWife').innerHTML = "Hi, " + localStorage.getItem('username');
-        document.getElementById('hideYoWife').style.color = "white";
-        document.getElementById('hideYoWife').style.display = "";
+        document.getElementById('showUsername').innerHTML = "Hi, " + localStorage.getItem('username');
+        document.getElementById('showUsername').style.color = "white";
+        document.getElementById('showUsername').style.display = "";
         document.getElementById("loginNav").style.display = "none";
         document.getElementById("settingNav").style.display = "";
         document.getElementById("signInText").style.display = "none";
@@ -193,7 +193,7 @@ function nav_LogOut() {
         firebase.auth().signOut();
         localStorage.removeItem('username');
         localStorage.clear();
-        document.getElementById('hideYoWife').style.display = "none";
+        document.getElementById('showUsername').style.display = "none";
         document.getElementById("loginNav").style.display = "";
         document.getElementById("settingNav").style.display = "none";
         document.getElementById("signInText").style.display = "";
