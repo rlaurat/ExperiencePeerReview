@@ -10,42 +10,42 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-<!--&lt;!&ndash; The core Firebase JS SDK is always required and must be listed first &ndash;&gt;-->
-<!--    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
-<!--    &lt;!&ndash; Add SDKs for Firebase products that you want to use-->
-<!--    https://firebase.google.com/docs/web/setup#available-libraries &ndash;&gt;-->
-<!--    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>-->
-<!--    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>-->
-
-
-<!--    <script>-->
-<!--        // Your web app's Firebase configuration-->
-<!--        var firebaseConfig = {-->
-<!--            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",-->
-<!--            authDomain: "experiencepeerreview.firebaseapp.com",-->
-<!--            databaseURL: "https://experiencepeerreview.firebaseio.com",-->
-<!--            projectId: "experiencepeerreview",-->
-<!--            storageBucket: "experiencepeerreview.appspot.com",-->
-<!--            messagingSenderId: "975792372955",-->
-<!--            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"-->
-<!--        };-->
-<!--        // Initialize Firebase-->
-<!--        firebase.initializeApp(firebaseConfig);-->
-<!--        // ref to firestore database-->
-<!--        var db = firebase.firestore();-->
-<!--    </script>-->
+    <!-- Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
 
 
-<!--    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>-->
-<!--    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>-->
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
+            authDomain: "experiencepeerreview.firebaseapp.com",
+            databaseURL: "https://experiencepeerreview.firebaseio.com",
+            projectId: "experiencepeerreview",
+            storageBucket: "experiencepeerreview.appspot.com",
+            messagingSenderId: "975792372955",
+            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // ref to firestore database
+        var db = firebase.firestore();
+    </script>
 
-<!--    <script>-->
-<!--        // Initialize the FirebaseUI Widget using Firebase.-->
-<!--        var ui = new firebaseui.auth.AuthUI(firebase.auth());-->
-<!--    </script>-->
-<!--    &lt;!&ndash; The surrounding HTML is left untouched by FirebaseUI.-->
-<!--         Your app may use that space for branding, controls and other customizations.&ndash;&gt;-->
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>
+
+    <script>
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    </script>
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+         Your app may use that space for branding, controls and other customizations.-->
 </head>
 
 
@@ -68,17 +68,64 @@
 
 <body>
 <div id="nav-placeholder"></div>
-
-
-
+<p>Hello, <span id="user"></span></p>
+<p>Enter your birthday. You'll receive a surprise when it's your birthday!</p>
+<p>Current Birthday: <span id="birthday"></span></p>
+<input type="date" id="newBirthday">
+<button type="submit" onclick="overwriteUserData()">Submit</button>
 
 <script>
-    function viewReview() {
-        db.collection('Users').doc(user.uid).get({
-        "email": email_doc
-    })}
-viewReview();
-console.log(email_doc)
+
+    // Check if User is logged in
+    // var user = firebase.auth().currentUser;
+    //
+    // if (user) {
+    //     alert("signed in");
+    //     console.log(user);
+    // } else {
+    //     alert("not signed in")
+    // }
+
+    function setUsername() {
+        let user = localStorage.getItem('username');
+            alert('user='+user);
+            document.getElementById('user').innerHTML = user;
+    }
+
+    function getBirthday() {
+        let uid = localStorage.getItem('uid');
+        db.collection('Users').doc(uid).get().then(function (doc) {
+            if (doc.exists) {
+                if(doc.data().birthday == null){
+                    document.getElementById("birthday").innerHTML = "None";
+                }else {
+                    document.getElementById("birthday").innerHTML = localStorage.getItem("birthday");
+                }
+            } else {
+                console.log("Does not exist");
+            }
+        }).catch(function (error) {
+            console.log("error getting document", error);
+
+        });
+    }
+
+    function overwriteUserData(){
+        let uid = localStorage.getItem('uid');
+
+        let newBirthday = document.getElementById("newBirthday").value;
+        db.collection('Users').doc(uid).set({
+            birthday: newBirthday
+        });
+        alert("birthday saved!")
+    }
+
+    // run functions
+
+    setUsername();
+
+    getBirthday();
+
 </script>
 <script>
     $(function () {

@@ -16,7 +16,6 @@
     https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -44,7 +43,7 @@
     <!-- The surrounding HTML is left untouched by FirebaseUI.
          Your app may use that space for branding, controls and other customizations.-->
     <style>
-        .mainbutton{
+        .mainbutton {
             background-color: #003e6b;
             padding: 15%;
             /*width: 25%;*/
@@ -57,14 +56,9 @@
             text-align: center;
             vertical-align: middle;
         }
-        .mainbutton:hover{
-            border: 3px solid #ebb805;
-        }
 
-        iframe {
-            display:block;
-            width:100%;
-            height: 400px;
+        .mainbutton:hover {
+            border: 3px solid #ebb805;
         }
     </style>
 
@@ -89,50 +83,48 @@
         </div>
     </div>
 
-<div class = "container">
-    <br>
-    <div class="row">
-        <div class="col-4"></div>
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-4"></div>
             <div class="col-4">
                 <label>Search</label>
-                    <select id = "progList">
-                        <option value="default">Search Programs...</option>
-                    </select>
+                <select id="progList">
+                    <option value="default">Search Programs...</option>
+                </select>
             </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
-            <div class="mainbutton" id="search">
-                Search Reviews
-            </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
-            <div class="mainbutton" id="write">
-                Write A Review
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="mainbutton" id="search">
+                    Search Reviews
+                </div>
             </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="mainbutton" id="write">
+                    Write A Review
+                </div>
+            </div>
+            <div class="col-4"></div>
+        </div>
     </div>
-</div>
     <!-- Modal -->
     <div id="loginModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Log in / Sign up to Review!</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Login/Signup</h4>
                 </div>
                 <div class="modal-body">
-                    <iframe src="login.html">
-
-                    </iframe>
+                    <p>Some text in the modal.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -141,62 +133,74 @@
         </div>
     </div>
 
-<script>
-    $(document).ready(function(){
-        $("#write").click(function(){
-            if (localStorage.getItem("username")) {
-                let prgm = document.getElementById("progList").value;
-                if (prgm === "default") {
-                    alert("Please select a program to continue.");
+    <script>
+        $(document).ready(function () {
+            $("#write").click(function () {
+                if (localStorage.getItem("username")) {
+                    let prgm = document.getElementById("progList").value;
+                    if (prgm === "default") {
+                        alert("Please select a program to continue.");
+                    } else {
+                        window.location.href = "create_review.html?" + prgm;
+                    }
+                } else {
+                    $("#loginModal").modal();
                 }
-                else {
-                    window.location.href = "create_review.html?"+prgm;
-                }
-            }
-
-            else {
-                $("#loginModal").modal();
-            }
+            });
         });
-    });
 
-    let val = document.getElementById("progList").value;
-    console.log(val);
+        let val = document.getElementById("progList").value;
+        console.log(val);
 
-    function getPrograms() {
-        var programsRef = db.collection('Programs');
-        programsRef.get().then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                progSelect = document.getElementById('progList');
-                progSelect.options[progSelect.options.length] = new Option(doc.data().FullName, doc.id)
-            })
-        });
-    }
-
-    getPrograms();
-
-    document.getElementById("search").onclick = toSearch;
-    //document.getElementById("write").onclick = toWrite;
-
-    function toSearch(){
-        let prgm = document.getElementById("progList").value;
-        if (prgm === "default") {
-            alert("Please select a program to continue.");
+        function getPrograms() {
+            var programsRef = db.collection('Programs');
+            programsRef.get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    progSelect = document.getElementById('progList');
+                    progSelect.options[progSelect.options.length] = new Option(doc.data().FullName, doc.id)
+                })
+            });
         }
 
-        else {
-            window.location.href = "format.html?" + prgm;
+        getPrograms();
+
+        document.getElementById("search").onclick = toSearch;
+
+        //document.getElementById("write").onclick = toWrite;
+
+        function toSearch() {
+            let prgm = document.getElementById("progList").value;
+            if (prgm === "default") {
+                alert("Please select a program to continue.");
+            } else {
+                window.location.href = "format.html?" + prgm;
+            }
         }
-    }
 
-   /*function toWrite() {
-       $('#loginModal').modal('show');
-   }*/
+        function checkBirthday() {
+            if (localStorage.getItem('username')) {
+                let today = new Date();
+                let date = (today.getMonth() + 1) + "-" + today.getDate();
+                birthday = localStorage.getItem('birthday');
+                if (birthday) {
+                    var userBirthday = birthday.slice(5);
+                }
 
-    $(function () {
-        $("#nav-placeholder").load("./navigation.html");
-    });
+                if (date === userBirthday) {
+                    alert("Happy Birthday!")
+                }
+            }
+        }
 
-</script>
+        checkBirthday();
+        /*function toWrite() {
+            $('#loginModal').modal('show');
+        }*/
+
+        $(function () {
+            $("#nav-placeholder").load("./navigation.html");
+        });
+
+    </script>
 </body>
 </html>
