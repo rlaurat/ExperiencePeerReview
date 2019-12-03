@@ -113,6 +113,15 @@
             </div>
             <div class="col-4"></div>
         </div>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="mainbutton" id="history">
+                    My Review History
+                </div>
+            </div>
+            <div class="col-4"></div>
+        </div>
     </div>
     <!-- Modal -->
     <div id="loginModal" class="modal fade" role="dialog">
@@ -165,6 +174,7 @@
         getPrograms();
 
         document.getElementById("search").onclick = toSearch;
+        document.getElementById("history").onclick = toHistory;
 
         //document.getElementById("write").onclick = toWrite;
 
@@ -174,6 +184,15 @@
                 alert("Please select a program to continue.");
             } else {
                 window.location.href = "format.html?" + prgm;
+            }
+        }
+
+        function toHistory() {
+            let prgm = document.getElementById("progList").value;
+            if (prgm === "default") {
+                alert("Please select a program to continue.");
+            } else {
+                window.location.href = "history.html?" + prgm;
             }
         }
 

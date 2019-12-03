@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Review Feed</title>
+    <title>Review History</title>
 
     <style>
         #rvwContainer {
@@ -108,14 +108,14 @@
 <body>
     <div id="nav-placeholder"></div>
 
-    <h1>Review Feed</h1>
+    <h1>My Review History</h1>
     <h2 id="program"></h2>
 
 
 
     <script>
 
-        //let programs = {0: "CIT", 1: "CST", 2: "Software System Development"};
+        let user_name = localStorage.getItem("username")
         let program_name = decodeURIComponent(window.location.search);
         var query = program_name.split("?");
         let program = query[1];
@@ -163,9 +163,8 @@
         reviewArray = [];
 
         function getPrograms() {
-            var programsRef = db.collection('Programs').doc(program).collection("Reviews");
-            var query = programsRef.orderBy('dateCreated');
-            query.get().then(function (querySnapshot) {
+            var programsRef = db.collection('Programs').doc(program).collection("Reviews").where("user_ID", "==", user_name);
+            programsRef.get().then(function (querySnapshot) {
                 let dataArray = [];
                 querySnapshot.forEach(function (doc) {
                     let text = doc.data().review_text;
@@ -177,6 +176,9 @@
                 for (i = 0; i < dataArray.length; i++) {
                     reviewArray.push(Review(dataArray[i][0], dataArray[i][1]));
                 }
+            })
+            .catch(function(error){
+                console.log("Error getting documents: ", error);
             });
         }
 
