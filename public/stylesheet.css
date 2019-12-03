@@ -10,7 +10,7 @@ body {
 }
 
 .centerOfScreen {
-    position: fixed;
+    position: absolute;
     display: block;
     margin-left: 50%;
     /*margin-right: 50%;*/
@@ -80,6 +80,7 @@ body {
 .mainbutton:hover {
     border: 3px solid #ebb805;
 }
+
 
 /* HAMBURGER MENU */
 
