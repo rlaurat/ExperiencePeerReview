@@ -1,0 +1,193 @@
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Review History</title>
+
+    <style>
+        #rvwContainer {
+            width: 50%;
+            height: 25%;
+            margin: auto;
+            border: 3px solid #858585;
+            padding: 10px;
+            /*display: inline-table;*/
+        }
+
+        .value {
+            background-color: rgb(207, 206, 206);
+            float: right;
+            text-align: center;
+            width: 45%;
+            height: 20%;
+            border: 2px solid #858585;
+            padding: 1%;
+        }
+
+        .job {
+            background-color: #858585;
+            float: right;
+            text-align: center;
+            width: 45%;
+            /*height: 8%;*/
+            border: 2px solid rgb(241, 241, 241);
+            padding: 1%;
+        }
+
+        #comment {
+            background-color: rgb(241, 241, 241);
+            float: left;
+            width: 45%;
+            height: 90%;
+            padding: 1%;
+            border: 2px solid #858585;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            #rvwcontainer {
+                width: 80%;
+                height: 50%;
+            }
+
+            .value {
+                width: 95%;
+                height: 10%;
+                margin: auto;
+                float: left
+            }
+
+            #comment {
+                width: 95%;
+                height: 40%
+            }
+        }
+    </style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+    <!-- Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBsKdNN4aBDxYXzd62lLmqqRxPi9hCRdiI",
+            authDomain: "experiencepeerreview.firebaseapp.com",
+            databaseURL: "https://experiencepeerreview.firebaseio.com",
+            projectId: "experiencepeerreview",
+            storageBucket: "experiencepeerreview.appspot.com",
+            messagingSenderId: "975792372955",
+            appId: "1:975792372955:web:55cff2d32ee6185b3fe0fe"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // ref to firestore database
+        var db = firebase.firestore();
+    </script>
+
+</head>
+<div class='container'>
+
+</div>
+
+<body>
+    <div id="nav-placeholder"></div>
+
+    <h1>My Review History</h1>
+    <h2 id="program"></h2>
+
+
+
+    <script>
+
+        let user_name = localStorage.getItem("username")
+        let program_name = decodeURIComponent(window.location.search);
+        var query = program_name.split("?");
+        let program = query[1];
+        var programsRef = db.collection('Programs').doc(query[1]);
+        programsRef.get().then(function (doc) {
+            document.getElementById("program").innerHTML = doc.data().FullName;
+        })
+
+        function Review(comment, val, job) {
+            this.rvw = document.createElement("div");
+            this.rvw.style.backgroundColor = '#003e6b';
+            this.rvw.id = "rvwContainer";
+            document.body.appendChild(this.rvw);
+            this.cmt = document.createElement("div");
+            this.cmt.innerHTML = comment;
+            this.cmt.id = "comment";
+            this.rvw.appendChild(this.cmt);
+            this.value1 = document.createElement("div");
+            this.value1.innerHTML = "Student Support: " + val[0] + "/10";
+            this.value1.className = "value"
+            this.rvw.appendChild(this.value1);
+            this.value2 = document.createElement("div");
+            this.value2.innerHTML = "Social Experience: " + val[1] + "/10";
+            this.value2.className = "value";
+            this.rvw.appendChild(this.value2);
+            this.value3 = document.createElement("div");
+            this.value3.innerHTML = "Work Load: " + val[2] + "/10";
+            this.value3.className = "value";
+            this.rvw.appendChild(this.value3);
+            this.value4 = document.createElement("div");
+            this.value4.innerHTML = "Job Prospects: " + val[3] + "/10";
+            this.value4.className = "value";
+            this.rvw.appendChild(this.value4);
+            this.job = document.createElement("div");
+            if (job) {
+                this.job.innerHTML = "Employment: " + job;
+            }
+            else {
+                this.job.innerHTML = "Employment: N/A"
+            }
+            this.job.className = "value";
+            this.rvw.appendChild(this.job);
+        }
+
+        reviewArray = [];
+
+        function getPrograms() {
+            var programsRef = db.collection('Programs').doc(program).collection("Reviews").where("user_ID", "==", user_name);
+            programsRef.get().then(function (querySnapshot) {
+                let dataArray = [];
+                querySnapshot.forEach(function (doc) {
+                    let text = doc.data().review_text;
+                    let values = doc.data().slider;
+                    let job = doc.data().job;
+                    dataArray.unshift([text, values, job])
+                    //reviewArray.unshift(Review(text, values));
+                })
+                for (i = 0; i < dataArray.length; i++) {
+                    reviewArray.push(Review(dataArray[i][0], dataArray[i][1]));
+                }
+            })
+            .catch(function(error){
+                console.log("Error getting documents: ", error);
+            });
+        }
+
+        getPrograms();
+        //JQUERY TO LOAD NAVBAR
+        $(function () {
+            $("#nav-placeholder").load("./navigation.html");
+        });
+    </script>
+</body>
+
+</html>
