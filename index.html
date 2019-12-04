@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Experience Peer Review</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -49,11 +49,12 @@
 
 <div>
 
-
 <!--navigation bar placeholder-->
 <div id="nav-placeholder"></div>
 
 <!--BOOTSTRAP CENTRE ITEMS-->
+
+<!-- This div holds the buttons for the main functions of the site -->
 <div class="centerOfScreen">
             <br>
             <img src="images/BCITlogo.png" alt="" id="bcitLOGO"/>
@@ -100,6 +101,7 @@
     </div>
 
     <script>
+        //redirects user the the create review page
         $(document).ready(function () {
             $("#write").click(function () {
                 if (localStorage.getItem("username")) {
@@ -115,9 +117,7 @@
             });
         });
 
-        let val = document.getElementById("progList").value;
-        console.log(val);
-
+        //function retrieves all programs from the database to fill the options in dropdown menu
         function getPrograms() {
             var programsRef = db.collection('Programs');
             programsRef.get().then(function (querySnapshot) {
@@ -128,13 +128,7 @@
             });
         }
 
-        getPrograms();
-
-        document.getElementById("search").onclick = toSearch;
-        document.getElementById("history").onclick = toHistory;
-
-        //document.getElementById("write").onclick = toWrite;
-
+        //redirect user to the review feed page, onclick function for "review feed" button
         function toSearch() {
             let prgm = document.getElementById("progList").value;
             if (prgm === "default") {
@@ -144,6 +138,7 @@
             }
         }
 
+        //redirect user to their own review history, onclick function for "my review history" button
         function toHistory() {
             let prgm = document.getElementById("progList").value;
             if (prgm === "default") {
@@ -153,6 +148,7 @@
             }
         }
 
+        //checks if it is the users birthday and displays a happy birthday popup
         function checkBirthday() {
             if (localStorage.getItem('username')) {
                 let today = new Date();
@@ -178,12 +174,15 @@
                 }
             }
         }
-
+        
+        //function calls
+        document.getElementById("search").onclick = toSearch;
+        document.getElementById("history").onclick = toHistory;
         checkBirthday();
-        /*function toWrite() {
-            $('#loginModal').modal('show');
-        }*/
+        getPrograms();
 
+
+        //display navigation bar
         $(function () {
             $("#nav-placeholder").load("./navigation.html");
         });

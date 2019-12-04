@@ -6,24 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Thanks</title>
-    <style>
-    .mainbutton{
-        background-color: #003e6b;
-        padding: 25px;
-        /*width: 25%;*/
-        /* margin-right:auto;
-        margin-left:auto;
-        margin-top: auto;
-        margin-bottom: auto; */
-        border: 3px solid #858585;
-        color: white;
-        text-align: center;
-        vertical-align: middle;
-    }
-    .mainbutton:hover{
-        border: 3px solid #ebb805;
-    }
-    </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -56,48 +38,53 @@
 
 
 
-<div class='container'></div>
+<!-- <div class='container'></div> -->
 
 <div id="nav-placeholder"></div>
+
 <div class="centerOfScreen">
 
     <h1 id='msg'> </h1>
     <h2 id="program"></h2>
 
+<!-- Redirect buttons -->
     <div class="mainbutton" id="home">
-            Return to Home
-        </div>
-    
-        <div class="mainbutton" id="feed">
-            Review Feed
-        </div>
+        Return to Home
+    </div>
 
-        <div class="mainbutton" id="del">
-            My Review History
-        </div>
+    <div class="mainbutton" id="feed">
+        Review Feed
+    </div>
+
+    <div class="mainbutton" id="del">
+        My Review History
+    </div>
 </div>
 <script>
-    let messages = {del: "Your Review has been deleted from:", thx: "Thank You For Reviewing:", up: "Your Review has been updated for:"}
-
+    //messages to be displayed after user has made some changes to review database
+    let messages = { del: "Your Review has been deleted from:", thx: "Thank You For Reviewing:", up: "Your Review has been updated for:" }
+    //gets program name from the URL
     let program_name = decodeURIComponent(window.location.search);
-        var query = program_name.split("?");
-        var programsRef = db.collection('Programs').doc(query[1]);
-        programsRef.get().then(function(doc){
-            document.getElementById("program").innerHTML = doc.data().FullName;
-        })
+    let query = program_name.split("?");
+    let programsRef = db.collection('Programs').doc(query[1]);
+    programsRef.get().then(function (doc) {
+        document.getElementById("program").innerHTML = doc.data().FullName;
+    })
     document.getElementById('msg').innerHTML = messages[query[2]];
+
+    //assign onclick functions
     document.getElementById("home").onclick = toHome;
     document.getElementById("feed").onclick = toFeed;
     document.getElementById("del").onclick = toHistory;
 
-    function toHome(){
-        window.location.href = "main.html"
+    function toHome() {
+        window.location.href = "index.html"
     }
-    function toFeed(){
-        window.location.href = "format.html?"+query[1];
+    function toFeed() {
+        window.location.href = "format.html?" + query[1];
     }
-    function toHistory(){
-        window.location.href = "history.html?"+query[1];
+    function toHistory() {
+        window.location.href = "history.html?" + query[1];
     }
 
     //JQUERY TO ADD NAVBAR
@@ -107,4 +94,5 @@
 </script>
 
 </body>
+
 </html>

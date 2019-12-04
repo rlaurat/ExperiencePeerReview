@@ -6,82 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Review History</title>
-   <style>
-        .rvwContainer{
-            width: 70%;
-            height: 40%;
-            margin: auto;
-            border: 3px solid #858585;
-            padding: 10px;
-            /*display: inline-table;*/
+    <style>
+        .rvwContainer:hover {
+            border: 3px solid #ebb805
         }
-
-        .rvwContainer:hover{
-            border: 2px solid #ebb805
-        }
-    .value{
-        background-color: rgb(207, 206, 206);
-        float: right;
-        text-align: center;
-        width: 45%;
-        right: 1%;
-        /*position: relative;*/
-        /*height: 100;*/
-        border:2px solid #858585;
-        padding: 1%;
-    }
-    .job{
-        background-color: #858585;
-        float: right;
-        text-align: center;
-        width: 45%;
-        /*height: 8%;*/
-        border:2px solid rgb(241, 241, 241);
-        padding: 1%;
-    }
-    #comment{
-        background-color: rgb(241, 241, 241);
-        float: left;
-        width: 45%;
-        height: 90%;
-        padding: 1%;
-        border: 2px solid #858585;
-        overflow-y: scroll;
-    }
-    h1,
-    h2,
-    p{
-        text-align: center;
-    }
-        @media (max-width: 700px) {
- .rvwcontainer {
-            width: 350px;
-            height: 50%;
-            /*margin: 5px;*/
-            border: 3px solid #858585;
-            padding: 10px;
-            margin-left: 50%;
-            transform: translateX(-50%);
-            /*left: 50%;*/
-  }
-    .value{
-        background-color: rgb(207, 206, 206);
-        float: initial;
-
-        text-align: center;
-        /*display: ;*/
-        width: 307.8px;
-        /*height: 100;*/
-        border:2px solid #858585;
-        /*padding: 1%;*/
-    }
- #comment{
-     width: 95%;
-     height: 45%
- }
-}
     </style>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -123,16 +52,17 @@
     <h2 id="program"></h2>
     <p>click on any review to edit</p>
     <script>
-
+        //variables in storage
         let user_name = localStorage.getItem("username")
-        let program_name = decodeURIComponent(window.location.search);
-        var query = program_name.split("?");
+        let url = decodeURIComponent(window.location.search);
+        let query = program_name.split("?");
         let program = query[1];
-        var programsRef = db.collection('Programs').doc(query[1]);
+        let programsRef = db.collection('Programs').doc(program);
         programsRef.get().then(function (doc) {
             document.getElementById("program").innerHTML = doc.data().FullName;
         })
 
+        //review object constructor
         function Review(comment, val, job, id) {
             this.rvw = document.createElement("div");
             this.rvw.id = id;
@@ -171,13 +101,14 @@
             this.rvw.onclick = toEdit
         }
 
-        reviewArray = [];
-
+        //redirects user to the edit review page, onclick function for each review in their history
         function toEdit() {
             window.location.href = "edit_review.html?" + program + '?' + this.id;
         }
 
-        function getPrograms() {
+        //function creates review divs
+        reviewArray = [];
+        function formatReviews() {
             var programsRef = db.collection('Programs').doc(program).collection("Reviews").where("user_ID", "==", user_name);
             programsRef.get().then(function (querySnapshot) {
                 let dataArray = [];
@@ -193,12 +124,14 @@
                     reviewArray.push(Review(dataArray[i][0], dataArray[i][1], dataArray[i][2], dataArray[i][3]));
                 }
             })
-            .catch(function(error){
-                console.log("Error getting documents: ", error);
-            });
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error);
+                });
         }
 
-        getPrograms();
+        //function calls
+        formatReviews();
+
         //JQUERY TO LOAD NAVBAR
         $(function () {
             $("#nav-placeholder").load("./navigation.html");
