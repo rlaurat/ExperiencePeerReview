@@ -9,51 +9,60 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-<style>
-    .container {
-        border-radius: 8px;
-        background-color: #f2f2f2;
-        padding: 15px;
-        width: 350px;
-    }
-    input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-    }
-</style>
+    <!--    styling is page specific-->
+    <style>
+        .commentContainer {
+            border-radius: 8px;
+            background-color: #f2f2f2;
+            padding: 15px;
+            width: 350px;
+            /*display: block;*/
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .centerContact {
+
+
+            /*position: absolute;*/
+            display: block;
+            margin-left: 50%;
+            /*margin-right: 50%;*/
+            /*margin-left: -50%;*/
+            transform: translateX(-50%);
+
+        }
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+    </style>
 
 
 </head>
 <body>
-
+<!-- place navbar above everything -->
 <div id="nav-placeholder"></div>
 
 <!--BOOTSTRAP CENTRE ITEMS-->
-<div class="row">
-    <div class="col-4"></div>
-    <div class="col-4 text-center">
+<div class="centerContact">
+    <div>
         <br>
         <img src="images/BCITlogo.png" alt="" id="bcitLOGO"/>
         <div class="locationPeerReviewTitle"><p>CONTACT US</p>
         </div>
-    </div>
-    <div class="col-4"></div>
-</div>
-
-<!--CENTRE CONTACT US FORM-->
-<div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-
         <!--CONTACT FORM-->
-        <div class="container">
+        <div class="commentContainer">
             <form action="">
+
                 <table>
                     <tr>
                         <td><label for="fname">First Name</label>
@@ -101,6 +110,13 @@
         </div>
 
     </div>
+</div>
+</div>
+
+<!--CENTRE CONTACT US FORM-->
+<div class="centerContact">
+
+
     <div class="col-4"></div>
 </div>
 <!--END FORM-->
