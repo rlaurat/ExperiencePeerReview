@@ -34,35 +34,36 @@
 
 <div>
 
-    <!--navigation bar placeholder-->
-    <div id="nav-placeholder"></div>
+<!--navigation bar placeholder-->
+<div id="nav-placeholder"></div>
 
+<!--BOOTSTRAP CENTRE ITEMS-->
 
-    <!-- This div holds the buttons for the main functions of the site -->
-    <div class="centerOfScreen">
-        <br>
-        <img src="images/BCITlogo.png" alt="" id="bcitLOGO"/>
-        <div class="locationPeerReviewTitle">
-            <p> PEER REVIEWS</p>
-        </div>
+<!-- This div holds the buttons for the main functions of the site -->
+<div class="centerOfScreen">
+            <br>
+            <img src="images/BCITlogo.png" alt="" id="bcitLOGO"/>
+            <div class="locationPeerReviewTitle">
+                <p> PEER REVIEWS</p>
+            </div>
 
-        <label>Search</label>
-        <select id="progList">
-            <option value="default">Select a Program...</option>
-        </select>
+                <label>Search</label>
+                <select id="progList">
+                    <option value="default">Select a Program...</option>
+                </select>
 
-        <div class="mainbutton" id="search">
-            Review Feed
-        </div>
+                <div class="mainbutton" id="search">
+                    Review Feed
+                </div>
 
-        <div class="mainbutton" id="write">
-            Write A Review
-        </div>
+                <div class="mainbutton" id="write">
+                    Write A Review
+                </div>
 
-        <div class="mainbutton" id="history">
-            My Review History
-        </div>
-    </div>
+                <div class="mainbutton" id="history">
+                    My Review History
+                </div>
+</div>
 
 
     <!-- Modal -->
@@ -83,7 +84,7 @@
             </div>
         </div>
     </div>
-</div>
+
     <script>
         //redirects user the the create review page
         $(document).ready(function () {
@@ -96,11 +97,10 @@
                         window.location.href = "create_review.html?" + prgm;
                     }
                 } else {
-                    $("#loginModal").modal();
+                    alert("Please log in to continue")
                 }
             });
         });
-
         //function retrieves all programs from the database to fill the options in dropdown menu
         function getPrograms() {
             var programsRef = db.collection('Programs');
@@ -111,7 +111,6 @@
                 })
             });
         }
-
         //redirect user to the review feed page, onclick function for "review feed" button
         function toSearch() {
             let prgm = document.getElementById("progList").value;
@@ -121,7 +120,6 @@
                 window.location.href = "format.html?" + prgm;
             }
         }
-
         //redirect user to their own review history, onclick function for "my review history" button
         function toHistory() {
             let prgm = document.getElementById("progList").value;
@@ -131,22 +129,24 @@
                 window.location.href = "history.html?" + prgm;
             }
         }
-
         //checks if it is the users birthday and displays a happy birthday popup
         function checkBirthday() {
             if (localStorage.getItem('username')) {
                 let today = new Date();
-
                 let date = (today.getFullYear() + "-" + today.getMonth()) + "-" + today.getDate();
                 birthday = localStorage.getItem('birthday');
-
                 if (birthday) {
-                    var userDay = parseInt(birthday.split("-")[2]);
-                    var userMonth = parseInt(birthday.split("-")[1]);
-                    var todayDay = parseInt(date.split("-")[2]);
-                    var todayMonth = parseInt(date.split("-")[1]) + 1;
+                    // alert("userbirthday" + birthday)
+                    // alert("todaydate" + date)
+                    var userDay  = parseInt(birthday.split("-")[2]);
+                    var userMonth= parseInt(birthday.split("-")[1]);
+                    var todayDay  = parseInt(date.split("-")[2]);
+                    var todayMonth= parseInt(date.split("-")[1])+1;
+                    // alert(userDay)
+                    // alert(userMonth)
+                    // alert(todayDay)
+                    // alert(todayMonth)
                 }
-
                 if ((userDay === todayDay) && (userMonth === todayMonth)) {
                     alert("Happy Birthday!")
                 }
@@ -158,13 +158,10 @@
         document.getElementById("history").onclick = toHistory;
         checkBirthday();
         getPrograms();
-
-
         //display navigation bar
         $(function () {
             $("#nav-placeholder").load("./navigation.html");
         });
-
     </script>
 </body>
 </html>
