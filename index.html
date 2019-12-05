@@ -34,36 +34,35 @@
 
 <div>
 
-<!--navigation bar placeholder-->
-<div id="nav-placeholder"></div>
+    <!--navigation bar placeholder-->
+    <div id="nav-placeholder"></div>
 
-<!--BOOTSTRAP CENTRE ITEMS-->
 
-<!-- This div holds the buttons for the main functions of the site -->
-<div class="centerOfScreen">
-            <br>
-            <img src="images/BCITlogo.png" alt="" id="bcitLOGO"/>
-            <div class="locationPeerReviewTitle">
-                <p> PEER REVIEWS</p>
-            </div>
+    <!-- This div holds the buttons for the main functions of the site -->
+    <div class="centerOfScreen">
+        <br>
+        <img src="images/BCITlogo.png" alt="" id="bcitLOGO"/>
+        <div class="locationPeerReviewTitle">
+            <p> PEER REVIEWS</p>
+        </div>
 
-                <label>Search</label>
-                <select id="progList">
-                    <option value="default">Select a Program...</option>
-                </select>
+        <label>Search</label>
+        <select id="progList">
+            <option value="default">Select a Program...</option>
+        </select>
 
-                <div class="mainbutton" id="search">
-                    Review Feed
-                </div>
+        <div class="mainbutton" id="search">
+            Review Feed
+        </div>
 
-                <div class="mainbutton" id="write">
-                    Write A Review
-                </div>
+        <div class="mainbutton" id="write">
+            Write A Review
+        </div>
 
-                <div class="mainbutton" id="history">
-                    My Review History
-                </div>
-</div>
+        <div class="mainbutton" id="history">
+            My Review History
+        </div>
+    </div>
 
 
     <!-- Modal -->
@@ -84,7 +83,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <script>
         //redirects user the the create review page
         $(document).ready(function () {
@@ -142,16 +141,10 @@
                 birthday = localStorage.getItem('birthday');
 
                 if (birthday) {
-                    // alert("userbirthday" + birthday)
-                    // alert("todaydate" + date)
-                    var userDay  = parseInt(birthday.split("-")[2]);
-                    var userMonth= parseInt(birthday.split("-")[1]);
-                    var todayDay  = parseInt(date.split("-")[2]);
-                    var todayMonth= parseInt(date.split("-")[1])+1;
-                    // alert(userDay)
-                    // alert(userMonth)
-                    // alert(todayDay)
-                    // alert(todayMonth)
+                    var userDay = parseInt(birthday.split("-")[2]);
+                    var userMonth = parseInt(birthday.split("-")[1]);
+                    var todayDay = parseInt(date.split("-")[2]);
+                    var todayMonth = parseInt(date.split("-")[1]) + 1;
                 }
 
                 if ((userDay === todayDay) && (userMonth === todayMonth)) {
@@ -159,7 +152,7 @@
                 }
             }
         }
-        
+
         //function calls
         document.getElementById("search").onclick = toSearch;
         document.getElementById("history").onclick = toHistory;

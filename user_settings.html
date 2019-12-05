@@ -5,12 +5,12 @@
     <title>Settings</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="public/stylesheet.css">
-<!--    <link rel=""-->
+    <!--    <link rel=""-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
     <!-- Add SDKs for Firebase products that you want to use
@@ -31,83 +31,38 @@
     </script>
     <!-- The surrounding HTML is left untouched by FirebaseUI.
          Your app may use that space for branding, controls and other customizations.-->
-<style>
-    .submitButton {
-    background-color: #003e6b;
-    padding: 1%;
-    /*width: 25%;*/
-    /* margin-right:auto;
-    margin-left:auto;
-    margin-top: auto;
-    margin-bottom: auto; */
-    border: 3px solid #858585;
-    color: white;
-    text-align: center;
-    vertical-align: middle;
-}
+    <style>
 
-.submitButton:hover {
-    border: 3px solid #ebb805;
-}
-    p {
-        color: white;
-    }
-</style>
+    </style>
 </head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <body>
 <div id="nav-placeholder"></div>
 <div class="centerOfScreen">
-<p>Hello, <span id="user"></span></p>
-<p>Enter your birthday. You'll receive a surprise when it's your birthday!</p>
-<p>Current Birthday: <span id="birthday"></span></p>
-<input class="imageCentre" type="date" id="newBirthday">
-<br>
-<br>
-<button type="submit" class="submitButton imageCentre" onclick="overwriteUserData()">Submit</button>
+    <p>Hello, <span id="user"></span></p>
+    <p>Enter your birthday. You'll receive a surprise when it's your birthday!</p>
+    <p>Current Birthday: <span id="birthday"></span></p>
+    <input class="imageCentre" type="date" id="newBirthday">
+    <br>
+    <br>
+    <button type="submit" class="submitButton imageCentre" onclick="overwriteUserData()">Submit</button>
 </div>
 <script>
 
-    // Check if User is logged in
-    // var user = firebase.auth().currentUser;
-    //
-    // if (user) {
-    //     alert("signed in");
-    //     console.log(user);
-    // } else {
-    //     alert("not signed in")
-    // }
-
+    // gets username from localstorage
     function setUsername() {
         let user = localStorage.getItem('username');
-            document.getElementById('user').innerHTML = user;
+        document.getElementById('user').innerHTML = user;
     }
 
+    // checks if user's birthday exists
     function getBirthday() {
         let uid = localStorage.getItem('uid');
         db.collection('Users').doc(uid).get().then(function (doc) {
             if (doc.exists) {
-                if(doc.data().birthday == null){
+                if (doc.data().birthday == null) {
                     document.getElementById("birthday").innerHTML = "None";
-                }else {
+                } else {
                     document.getElementById("birthday").innerHTML = localStorage.getItem("birthday");
                 }
             } else {
@@ -119,7 +74,8 @@
         });
     }
 
-    function overwriteUserData(){
+    // Overwrites user's birthday
+    function overwriteUserData() {
         let uid = localStorage.getItem('uid');
 
         let newBirthday = document.getElementById("newBirthday").value;
