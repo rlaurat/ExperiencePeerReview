@@ -38,7 +38,7 @@
         //variables in storage
         let user_name = localStorage.getItem("username")
         let url = decodeURIComponent(window.location.search);
-        let query = program_name.split("?");
+        let query = url.split("?");
         let program = query[1];
         let programsRef = db.collection('Programs').doc(program);
         programsRef.get().then(function (doc) {
@@ -103,7 +103,6 @@
                     dataArray.unshift([text, values, job, docid])
                 })
                 for (i = 0; i < dataArray.length; i++) {
-                    console.log(dataArray[i][3]);
                     reviewArray.push(Review(dataArray[i][0], dataArray[i][1], dataArray[i][2], dataArray[i][3]));
                 }
             })
