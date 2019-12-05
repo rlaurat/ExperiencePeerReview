@@ -10,12 +10,12 @@ Features include:
 - Creating user accounts
 - Writing Program Reviews
 - Reading All Program Reviews
-- Viewing and Editing user reviews
+- Viewing and Editing review history
 
 Styling includes:
 
 - a navigation bar available on all pages
-s
+
 ## Database Structure
 
 The database holds two main collections: Users and Programs.  The Users collection stores user information upon site registration.
